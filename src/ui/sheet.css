@@ -10,7 +10,7 @@
 .sheet-scrim {
   position: absolute;
   inset: 0;
-  background: rgb(18 38 28 / 0.22);
+  background: rgb(20 22 24 / 0.22);
   -webkit-backdrop-filter: blur(3px);
   backdrop-filter: blur(3px);
   animation: fade var(--t-med) var(--ease-out) both;
@@ -29,12 +29,9 @@
   animation: sheet-up 520ms var(--spring) both;
 }
 
-.sheet--amber {
-  background: linear-gradient(170deg, rgb(255 250 240 / 0.92), rgb(250 238 220 / 0.82));
-}
-
+.sheet--amber,
 .sheet--coral {
-  background: linear-gradient(170deg, rgb(255 246 242 / 0.92), rgb(248 228 220 / 0.82));
+  background: var(--glass-fill-strong);
 }
 
 @keyframes sheet-up {
