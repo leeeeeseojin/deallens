@@ -284,3 +284,19 @@
   font-size: 12.5px;
   color: var(--ink-3);
 }
+
+/* 선 칩: 칸 느낌을 줄이려고 채움 없이 얇은 선만. 고르면 옅은 민트 유리 */
+.chip--line {
+  background: rgb(255 255 255 / 0.22);
+  box-shadow: inset 0 0 0 1px rgb(29 36 51 / 0.09);
+  transition:
+    background var(--t-med),
+    box-shadow var(--t-med),
+    color var(--t-med);
+}
+
+.chip--line[aria-pressed='true'] {
+  color: var(--g-800);
+  background: rgb(44 198 114 / 0.14);
+  box-shadow: inset 0 0 0 1px rgb(44 198 114 / 0.45);
+}
