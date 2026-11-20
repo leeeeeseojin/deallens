@@ -65,21 +65,26 @@
   gap: 10px;
 }
 
+/* 단계 번호: 도형 없이 제목처럼 굵은 초록 그라데이션 숫자 */
 .card__step {
-  display: grid;
-  place-items: center;
-  width: 26px;
-  height: 26px;
-  border-radius: 50%;
-  font-size: 13px;
-  font-weight: 750;
-  color: var(--g-700);
-  background: var(--g-100);
+  display: inline-block;
+  min-width: 14px;
+  font-size: 22px;
+  font-weight: 850;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  background: linear-gradient(100deg, var(--g-700) 0%, var(--g-500) 55%, #6fe3a4 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
+/* 아이콘 단계(데모 상대)는 같은 초록으로만 표시 */
 .card__step--muted {
-  color: var(--g-700);
-  background: rgb(255 255 255 / 0.6);
+  display: inline-grid;
+  place-items: center;
+  background: none;
+  color: var(--g-600);
 }
 
 .card__title {
