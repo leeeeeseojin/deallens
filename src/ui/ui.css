@@ -150,11 +150,17 @@
 }
 
 .range__input--floor::-webkit-slider-thumb {
-  background: radial-gradient(circle at 35% 30%, #a6f5c6 0%, #2cc672 55%, #15904f 100%);
+  background: var(--g-500);
+  box-shadow:
+    0 0 0 3px #fff,
+    0 6px 14px -4px rgb(26 171 94 / 0.55);
 }
 
 .range__input--floor::-moz-range-thumb {
-  background: radial-gradient(circle at 35% 30%, #a6f5c6 0%, #2cc672 55%, #15904f 100%);
+  background: var(--g-500);
+  box-shadow:
+    0 0 0 3px #fff,
+    0 6px 14px -4px rgb(26 171 94 / 0.55);
 }
 
 .range__note {

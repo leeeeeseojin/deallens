@@ -337,7 +337,7 @@
   background: var(--ink-3);
 }
 
-.iv--better .iv__badge { background: linear-gradient(160deg, var(--g-400), var(--g-700)); }
+.iv--better .iv__badge { background: var(--g-500); }
 .iv--worse .iv__badge { background: var(--coral); }
 
 .iv__text {

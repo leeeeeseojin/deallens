@@ -156,7 +156,7 @@
   height: 34px;
   border-radius: 50%;
   color: #fff;
-  background: radial-gradient(circle at 35% 30%, var(--g-300), var(--g-600) 55%, var(--g-900));
+  background: var(--g-500);
   animation: pulse-ring 1.6s ease-out infinite;
 }
 
@@ -272,11 +272,8 @@
   height: 60px;
   border-radius: 50%;
   color: #fff;
-  background: radial-gradient(circle at 35% 28%, var(--g-500) 0%, var(--g-800) 60%, var(--g-950) 100%);
-  box-shadow:
-    inset 0 1px 0 rgb(255 255 255 / 0.35),
-    inset 0 -4px 8px rgb(0 0 0 / 0.25),
-    0 14px 24px -10px rgb(20 24 28 / 0.75);
+  background: var(--g-500);
+  box-shadow: 0 12px 22px -10px rgb(26 171 94 / 0.6);
 }
 
 .composer__send svg {
@@ -430,7 +427,7 @@
 
 .decision__opt--take .decision__opt-icon {
   color: #fff;
-  background: linear-gradient(160deg, var(--g-800), var(--g-950));
+  background: var(--ink);
 }
 
 /* ─── 인수인계 브리핑 ─── */
@@ -636,7 +633,7 @@
 }
 
 .toggle[aria-checked='true'] .toggle__knob {
-  background: linear-gradient(90deg, var(--g-500), var(--g-600));
+  background: var(--g-500);
 }
 
 .toggle[aria-checked='true'] .toggle__knob::after {
