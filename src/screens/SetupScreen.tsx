@@ -3,17 +3,17 @@ import { PERSONAS, type PersonaId } from '../engine/personas'
 import type { Autonomy, TradeMethod } from '../engine/types'
 import { AUTONOMY_LABEL } from '../engine/types'
 import { Glass } from '../ui/Glass'
-import { Icon, type IconName } from '../ui/Icon'
+import { Icon } from '../ui/Icon'
 import { ITEM_ICON } from '../ui/itemIcon'
 import { RangeSlider } from '../ui/RangeSlider'
 import { Segmented } from '../ui/Segmented'
 import type { SetupValues } from '../setup'
 import './setup.css'
 
-const AUTONOMY: Array<{ value: Autonomy; icon: IconName; desc: string; who: string }> = [
-  { value: 'full', icon: 'bolt', desc: '범위 안이면 에이전트가 합의까지 해요', who: '에이전트가 결정' },
-  { value: 'conditional', icon: 'hand', desc: '협상은 맡기고, 합의와 범위 밖 제안만 확인받아요', who: '함께 결정' },
-  { value: 'assist', icon: 'sparkle', desc: '에이전트가 답장을 추천하고 내가 직접 보내요', who: '내가 결정' },
+const AUTONOMY: Array<{ value: Autonomy; desc: string; who: string }> = [
+  { value: 'full', desc: '범위 안이면 에이전트가 합의까지 해요', who: '에이전트가 결정' },
+  { value: 'conditional', desc: '협상은 맡기고, 합의와 범위 밖 제안만 확인받아요', who: '함께 결정' },
+  { value: 'assist', desc: '에이전트가 답장을 추천하고 내가 직접 보내요', who: '내가 결정' },
 ]
 
 interface SetupScreenProps {
@@ -149,9 +149,6 @@ export function SetupScreen({ value: v, onChange, onStart }: SetupScreenProps) {
                 className={`autonomy__opt ${v.autonomy === a.value ? 'autonomy__opt--on' : ''}`}
                 onClick={() => set({ autonomy: a.value })}
               >
-                <span className="autonomy__icon" aria-hidden="true">
-                  <Icon name={a.icon} size={20} />
-                </span>
                 <span className="autonomy__text">
                   <span className="autonomy__name">
                     {AUTONOMY_LABEL[a.value]} <span className="autonomy__who">{a.who}</span>
@@ -167,9 +164,7 @@ export function SetupScreen({ value: v, onChange, onStart }: SetupScreenProps) {
 
         <Glass className="card card--quiet">
           <div className="card__head">
-            <span className="card__step card__step--muted">
-              <Icon name="user" size={14} />
-            </span>
+            <span className="card__step">5</span>
             <h2 className="card__title">데모 상대</h2>
             <span className="tag tag--sky">시뮬레이터</span>
           </div>
