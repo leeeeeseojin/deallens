@@ -1,0 +1,71 @@
+/* DealLens 디자인 토큰 — 차분한 초록 기반의 리퀴드 글래스 */
+:root {
+  /* 초록 primary */
+  --g-950: #12261c;
+  --g-900: #1e3a2c;
+  --g-800: #27493a;
+  --g-700: #2f5d46;
+  --g-600: #3c7558;
+  --g-500: #4f8a6a;
+  --g-400: #6fa383;
+  --g-300: #9cc3a8;
+  --g-200: #c4dcc9;
+  --g-100: #e3efe4;
+  --g-50: #f2f7f1;
+
+  --primary: var(--g-600);
+  --primary-deep: var(--g-900);
+  --primary-soft: var(--g-100);
+
+  /* 보조: 따뜻한 대비색은 주의·경고에만 쓴다 */
+  --amber: #d99a4e;
+  --amber-soft: #f7e6cf;
+  --coral: #d0694f;
+  --coral-soft: #f6ddd5;
+  --sky: #5e8fa6;
+  --sky-soft: #dcebf0;
+
+  /* 글자 */
+  --ink: #16241c;
+  --ink-2: #44564b;
+  --ink-3: #7a8a80;
+  --ink-inverse: #f4faf3;
+
+  /* 배경 */
+  --bg: #e7efe6;
+  --bg-deep: #d6e3d6;
+
+  /* 유리 */
+  --glass-fill: linear-gradient(140deg, rgb(255 255 255 / 0.62) 0%, rgb(255 255 255 / 0.28) 55%, rgb(255 255 255 / 0.4) 100%);
+  --glass-fill-strong: linear-gradient(140deg, rgb(255 255 255 / 0.82) 0%, rgb(255 255 255 / 0.55) 100%);
+  --glass-tint: linear-gradient(140deg, rgb(79 138 106 / 0.82) 0%, rgb(47 93 70 / 0.78) 100%);
+  --glass-dark: linear-gradient(150deg, rgb(39 73 58 / 0.92) 0%, rgb(18 38 28 / 0.88) 100%);
+  --glass-blur: 22px;
+  --glass-sat: 170%;
+  --rim-light: rgb(255 255 255 / 0.9);
+  --rim-dim: rgb(255 255 255 / 0.15);
+
+  --shadow-soft: 0 1px 1px rgb(30 58 44 / 0.04), 0 10px 30px -12px rgb(30 58 44 / 0.28);
+  --shadow-float: 0 2px 4px rgb(30 58 44 / 0.06), 0 24px 48px -20px rgb(30 58 44 / 0.45);
+  --shadow-press: 0 1px 2px rgb(30 58 44 / 0.12), 0 6px 14px -8px rgb(30 58 44 / 0.4);
+
+  /* 모양 */
+  --r-xs: 10px;
+  --r-sm: 14px;
+  --r-md: 20px;
+  --r-lg: 28px;
+  --r-xl: 36px;
+  --r-pill: 999px;
+
+  /* 움직임 */
+  --spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --t-fast: 160ms;
+  --t-med: 320ms;
+  --t-slow: 560ms;
+
+  --font: 'Pretendard Variable', Pretendard, -apple-system, BlinkMacSystemFont, system-ui, 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
+  --app-w: 440px;
+  --gutter: 16px;
+  --safe-b: env(safe-area-inset-bottom, 0px);
+}

@@ -1,0 +1,222 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  margin: 0;
+  min-height: 100dvh;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font);
+  font-size: 15px;
+  line-height: 1.5;
+  letter-spacing: -0.01em;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+  color: inherit;
+  letter-spacing: inherit;
+}
+
+button {
+  cursor: pointer;
+  border: 0;
+  background: none;
+  padding: 0;
+}
+
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid var(--g-500);
+  outline-offset: 2px;
+}
+
+h1,
+h2,
+h3,
+p {
+  margin: 0;
+}
+
+.num {
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* ─── 살아 움직이는 배경: 흐르는 색 덩어리 + 미세한 입자 ─── */
+.ambient {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+  background:
+    radial-gradient(120% 80% at 50% 0%, #f1f6ee 0%, transparent 60%),
+    linear-gradient(180deg, #eaf1e8 0%, var(--bg-deep) 100%);
+}
+
+.ambient__blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(56px);
+  opacity: 0.92;
+  will-change: transform;
+  animation: drift 26s ease-in-out infinite alternate;
+}
+
+.ambient__blob--1 {
+  width: 62vmax;
+  height: 62vmax;
+  left: -22vmax;
+  top: -18vmax;
+  background: radial-gradient(circle at 40% 40%, #9cc3a8, transparent 68%);
+}
+
+.ambient__blob--2 {
+  width: 52vmax;
+  height: 52vmax;
+  right: -20vmax;
+  top: 18vh;
+  background: radial-gradient(circle at 50% 50%, #3c7558, transparent 66%);
+  opacity: 0.72;
+  animation-duration: 32s;
+  animation-delay: -8s;
+}
+
+.ambient__blob--3 {
+  width: 46vmax;
+  height: 46vmax;
+  left: -10vmax;
+  bottom: -16vmax;
+  background: radial-gradient(circle at 50% 50%, #e8d9b8, transparent 66%);
+  opacity: 0.75;
+  animation-duration: 38s;
+  animation-delay: -16s;
+}
+
+.ambient__blob--4 {
+  width: 34vmax;
+  height: 34vmax;
+  right: -8vmax;
+  bottom: 6vh;
+  background: radial-gradient(circle at 50% 50%, #a9cfc4, transparent 66%);
+  animation-duration: 30s;
+  animation-delay: -4s;
+}
+
+.ambient__grain {
+  position: absolute;
+  inset: -50%;
+  opacity: 0.08;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+@keyframes drift {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1) rotate(0deg);
+  }
+  50% {
+    transform: translate3d(6vmax, 4vmax, 0) scale(1.08) rotate(20deg);
+  }
+  100% {
+    transform: translate3d(-4vmax, 8vmax, 0) scale(0.94) rotate(-12deg);
+  }
+}
+
+/* ─── 앱 틀: 모바일 웹 기준, 넓은 화면에서는 가운데 정렬 ─── */
+.app {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: var(--app-w);
+  min-height: 100dvh;
+  margin: 0 auto;
+}
+
+/* ─── 공통 등장 모션 ─── */
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(14px) scale(0.98);
+    filter: blur(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+    filter: blur(0);
+  }
+}
+
+@keyframes fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes pulse-ring {
+  0% {
+    box-shadow: 0 0 0 0 rgb(79 138 106 / 0.45);
+  }
+  100% {
+    box-shadow: 0 0 0 14px rgb(79 138 106 / 0);
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.rise {
+  animation: rise var(--t-slow) var(--ease-out) both;
+}
+
+.stagger > * {
+  animation: rise var(--t-slow) var(--ease-out) both;
+}
+.stagger > *:nth-child(1) { animation-delay: 40ms; }
+.stagger > *:nth-child(2) { animation-delay: 100ms; }
+.stagger > *:nth-child(3) { animation-delay: 160ms; }
+.stagger > *:nth-child(4) { animation-delay: 220ms; }
+.stagger > *:nth-child(5) { animation-delay: 280ms; }
+.stagger > *:nth-child(6) { animation-delay: 340ms; }
+.stagger > *:nth-child(7) { animation-delay: 400ms; }
+.stagger > *:nth-child(8) { animation-delay: 460ms; }
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 1ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 1ms !important;
+  }
+}
