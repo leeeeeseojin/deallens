@@ -41,7 +41,7 @@ export function ChatBubble({ msg, tone }: ChatBubbleProps) {
     if (tags.includes('accept')) notes.push({ text: '수락했어요' })
 
     return (
-      <div className="msg msg--buyer rise">
+      <div className="msg msg--buyer msg--in">
         <div className="msg__avatar" aria-hidden="true">
           <Avatar tone={tone} size={30} />
         </div>
@@ -65,7 +65,7 @@ export function ChatBubble({ msg, tone }: ChatBubbleProps) {
 
   const mine = msg.from === 'human'
   return (
-    <div className={`msg msg--${mine ? 'human' : 'agent'} rise`}>
+    <div className={`msg msg--${mine ? 'human' : 'agent'} msg--in`}>
       <div className="msg__col">
         <div className="msg__who">{mine ? '나' : '내 에이전트'}</div>
         <div className="bubble">{msg.text}</div>
@@ -80,7 +80,7 @@ export function ChatBubble({ msg, tone }: ChatBubbleProps) {
             )}
           </div>
         )}
-        {open && msg.rationale && <div className="msg__rationale rise">{msg.rationale}</div>}
+        {open && msg.rationale && <div className="msg__rationale msg--in">{msg.rationale}</div>}
       </div>
     </div>
   )

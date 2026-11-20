@@ -345,9 +345,10 @@
   line-height: 1.5;
   word-break: keep-all;
   overflow-wrap: anywhere;
-  /* 아이메시지처럼 그림자 없는 단색 말풍선. 받은 메시지는 연회색 */
+  /* 아이메시지처럼 그림자 없는 단색 말풍선. 받은 메시지는 배경과 어울리는 밝은 흰색 */
   color: var(--ink);
-  background: #e9e9eb;
+  background: #ffffff;
+  border: 1px solid #e4e9f0;
 }
 
 .msg--buyer .bubble {
@@ -356,19 +357,22 @@
 
 /* 내 쪽 메시지는 초록 단색에 흰 글씨. 에이전트와 나는 진하기로만 구분 */
 .msg--agent .bubble {
+  border: 0;
   border-bottom-right-radius: 6px;
   color: #fff;
   background: var(--g-500);
 }
 
 .msg--human .bubble {
+  border: 0;
   border-bottom-right-radius: 6px;
   color: #fff;
   background: var(--g-700);
 }
 
 .msg--buyer .bubble--threat {
-  background: #f7e3dd;
+  background: #fff6f3;
+  border-color: #f3d9d0;
 }
 
 .bubble__quarantine {
@@ -463,6 +467,18 @@
 @keyframes blink {
   0%, 100% { opacity: 0.25; transform: translateY(0); }
   40% { opacity: 0.9; transform: translateY(-3px); }
+}
+
+/* 말풍선 등장: 흐림 없이 살짝 떠오르기만 */
+.msg--in {
+  animation: msg-in 260ms var(--ease-out) both;
+}
+
+@keyframes msg-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
 }
 
 .msg--typing {
