@@ -7,7 +7,6 @@ export type Actor = 'buyer' | 'agent' | 'human' | 'system'
 export interface Item {
   id: string
   name: string
-  emoji: string
   condition: string
   /** 비슷한 매물의 시세. 상대 시뮬레이터가 지불 의사를 정할 때만 쓴다 */
   marketPrice: number

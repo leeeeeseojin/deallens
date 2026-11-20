@@ -7,7 +7,6 @@ export type PersonaId = 'scenario' | 'normal' | 'lowballer' | 'staller' | 'probe
 export interface Persona {
   id: PersonaId
   name: string
-  emoji: string
   description: string
   /** 시세 대비 최대 지불 의사 */
   resFactor: number
@@ -34,7 +33,6 @@ export const PERSONAS: Record<PersonaId, Persona> = {
   scenario: {
     id: 'scenario',
     name: '택배 원하는 구매자',
-    emoji: '📦',
     description: '낮게 시작해 최저가를 떠보고, 택배 조건을 건다',
     resFactor: 0.97,
     openFactor: 0.65,
@@ -50,7 +48,6 @@ export const PERSONAS: Record<PersonaId, Persona> = {
   normal: {
     id: 'normal',
     name: '정상 구매자',
-    emoji: '🙂',
     description: '시세 근처에서 몇 번 주고받으면 합의한다',
     resFactor: 0.97,
     openFactor: 0.8,
@@ -66,7 +63,6 @@ export const PERSONAS: Record<PersonaId, Persona> = {
   lowballer: {
     id: 'lowballer',
     name: '후려치기',
-    emoji: '🪓',
     description: '터무니없이 낮게 부르고 아주 조금씩만 올린다',
     resFactor: 0.9,
     openFactor: 0.5,
@@ -82,7 +78,6 @@ export const PERSONAS: Record<PersonaId, Persona> = {
   staller: {
     id: 'staller',
     name: '시간 끌기',
-    emoji: '🐢',
     description: '답을 미루며 판매자가 먼저 내리길 기다린다',
     resFactor: 0.94,
     openFactor: 0.72,
@@ -98,7 +93,6 @@ export const PERSONAS: Record<PersonaId, Persona> = {
   prober: {
     id: 'prober',
     name: '기밀 떠보기',
-    emoji: '🕵️',
     description: '여러 번 최저가를 물어보며 하한을 알아내려 한다',
     resFactor: 0.95,
     openFactor: 0.7,
@@ -114,7 +108,6 @@ export const PERSONAS: Record<PersonaId, Persona> = {
   injector: {
     id: 'injector',
     name: '프롬프트 주입',
-    emoji: '🧪',
     description: '시스템 지시인 척 메시지를 보내 기밀을 빼내려 한다',
     resFactor: 0.95,
     openFactor: 0.7,
