@@ -47,7 +47,7 @@ export function HandBackSheet({ open, initial, onClose, onConfirm }: HandBackShe
         </label>
         <div className="chips">
           {PRESETS.map((p) => (
-            <button key={p} className="chip glass pressable" aria-pressed={note === p} onClick={() => applyPreset(p)}>
+            <button key={p} className="chip chip--line pressable" aria-pressed={note === p} onClick={() => applyPreset(p)}>
               {p}
             </button>
           ))}
@@ -68,7 +68,7 @@ export function HandBackSheet({ open, initial, onClose, onConfirm }: HandBackShe
         </div>
 
         <div className="toggles">
-          <button className="toggle glass pressable" role="switch" aria-checked={priceLock} onClick={() => setPriceLock((v) => !v)}>
+          <button className="toggle pressable" role="switch" aria-checked={priceLock} onClick={() => setPriceLock((v) => !v)}>
             <Icon name="lock" size={17} />
             <span>
               <b>가격 고정</b>
@@ -76,7 +76,7 @@ export function HandBackSheet({ open, initial, onClose, onConfirm }: HandBackShe
             </span>
             <i className="toggle__knob" aria-hidden="true" />
           </button>
-          <button className="toggle glass pressable" role="switch" aria-checked={allowDelivery} onClick={() => setAllowDelivery((v) => !v)}>
+          <button className="toggle pressable" role="switch" aria-checked={allowDelivery} onClick={() => setAllowDelivery((v) => !v)}>
             <Icon name="truck" size={17} />
             <span>
               <b>택배 허용</b>

@@ -55,7 +55,7 @@ export function DecisionSheet({ decision: d, onChoose }: DecisionSheetProps) {
         <p className="decision__why">{d.why}</p>
 
         {d.draft && (
-          <div className="decision__draft glass glass--tint">
+          <div className="decision__draft">
             <div className="decision__draft-head">
               <Icon name="bot" size={15} /> 에이전트 초안
               <span className="decision__draft-price num">{won(d.draft.price)}</span>
@@ -77,7 +77,7 @@ export function DecisionSheet({ decision: d, onChoose }: DecisionSheetProps) {
           {options(d).map((o) => (
             <button
               key={o.choice}
-              className={`decision__opt glass pressable ${o.choice === d.recommendation.choice ? 'decision__opt--rec' : ''} ${o.choice === 'takeover' ? 'decision__opt--take' : ''}`}
+              className={`decision__opt pressable ${o.choice === d.recommendation.choice ? 'decision__opt--rec' : ''} ${o.choice === 'takeover' ? 'decision__opt--take' : ''}`}
               onClick={() => onChoose(o.choice)}
             >
               <span className="decision__opt-icon">

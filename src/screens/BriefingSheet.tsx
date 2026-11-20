@@ -17,22 +17,22 @@ export function BriefingSheet({ open, briefing: b, onClose, onUseReply }: Briefi
     <Sheet open={open} onClose={onClose} eyebrow="인수인계 브리핑" title="지금 상황, 한 장으로" labelledBy="briefing-title">
       <div className="brief stagger">
         <div className="brief__grid">
-          <div className="brief__cell glass">
+          <div className="brief__cell">
             <span className="brief__k">내 제안가</span>
             <b className="brief__v num">{b.myCurrent !== null ? won(b.myCurrent) : '—'}</b>
           </div>
-          <div className="brief__cell glass">
+          <div className="brief__cell">
             <span className="brief__k">상대 제안가</span>
             <b className="brief__v num brief__v--their">{b.theirCurrent !== null ? won(b.theirCurrent) : '—'}</b>
           </div>
-          <div className="brief__cell glass">
+          <div className="brief__cell">
             <span className="brief__k">양보한 폭</span>
             <b className="brief__v num">{won(b.conceded)}</b>
             <span className="brief__bar" aria-hidden="true">
               <i style={{ width: `${Math.round(b.concededRatio * 100)}%` }} />
             </span>
           </div>
-          <div className="brief__cell glass">
+          <div className="brief__cell">
             <span className="brief__k">
               남은 여지 <Icon name="lock" size={11} />
             </span>
@@ -57,7 +57,7 @@ export function BriefingSheet({ open, briefing: b, onClose, onUseReply }: Briefi
         {b.agentNext && (
           <div className="brief__block">
             <h3 className="brief__h">에이전트가 다음에 하려던 수</h3>
-            <div className="brief__next glass glass--tint">
+            <div className="brief__next">
               <b className="num">{won(b.agentNext.price)} 반대 제안</b>
               <span>{b.agentNext.rationale}</span>
             </div>
@@ -67,7 +67,7 @@ export function BriefingSheet({ open, briefing: b, onClose, onUseReply }: Briefi
         {b.suggestedReply && (
           <div className="brief__block">
             <h3 className="brief__h">추천 답장</h3>
-            <button className="brief__reply glass pressable" onClick={() => onUseReply(b.suggestedReply!)}>
+            <button className="brief__reply pressable" onClick={() => onUseReply(b.suggestedReply!)}>
               <span>
                 “{b.suggestedReply.text}”
                 <span className="brief__reply-meta">
