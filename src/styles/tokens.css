@@ -36,9 +36,9 @@
   --bg-deep: #e6ecf4;
 
   /* 유리: 흰 서리 유리. 채움은 옅게, 흐림은 강하게 해 뒤의 초록이 번져 보이게 */
-  --glass-fill: linear-gradient(145deg, rgb(255 255 255 / 0.5) 0%, rgb(255 255 255 / 0.22) 100%);
-  --glass-fill-strong: linear-gradient(145deg, rgb(255 255 255 / 0.72) 0%, rgb(255 255 255 / 0.5) 100%);
-  --glass-fill-raised: rgb(255 255 255 / 0.78);
+  --glass-fill: linear-gradient(145deg, rgb(255 255 255 / 0.34) 0%, rgb(255 255 255 / 0.1) 100%);
+  --glass-fill-strong: linear-gradient(145deg, rgb(255 255 255 / 0.62) 0%, rgb(255 255 255 / 0.4) 100%);
+  --glass-fill-raised: rgb(255 255 255 / 0.5);
   --glass-tint: linear-gradient(145deg, rgb(44 198 114 / 0.3) 0%, rgb(44 198 114 / 0.16) 100%);
   --glass-dark: rgb(44 198 114 / 0.94);
   --glass-blur: 26px;
