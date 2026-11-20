@@ -1,17 +1,27 @@
+/* 위는 고정, 가운데는 대화, 아래는 설정 화면과 같은 버튼 줄 */
 .nego {
-  padding: calc(10px + env(safe-area-inset-top, 0px)) var(--gutter) calc(150px + var(--safe-b));
+  padding: 0 var(--gutter) calc(150px + var(--safe-b));
 }
 
-/* 상단 */
 .nego__top {
   position: sticky;
-  top: calc(8px + env(safe-area-inset-top, 0px));
+  top: 0;
   z-index: 20;
   display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin: 0 calc(var(--gutter) * -1);
+  padding: calc(10px + env(safe-area-inset-top, 0px)) var(--gutter) 12px;
+  background: linear-gradient(180deg, rgb(244 247 251 / 0.95) 0%, rgb(240 244 249 / 0.9) 82%, rgb(240 244 249 / 0) 100%);
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+}
+
+.nego__bar {
+  display: flex;
   align-items: center;
-  gap: 6px;
-  padding: 6px;
-  border-radius: var(--r-pill);
+  gap: 4px;
+  margin-left: -10px;
 }
 
 .nego__title {
@@ -19,80 +29,95 @@
   flex-direction: column;
   flex: 1;
   min-width: 0;
-  text-align: center;
 }
 
 .nego__item {
-  font-size: 15px;
-  font-weight: 720;
+  font-size: 18px;
+  font-weight: 800;
+  letter-spacing: -0.03em;
 }
 
 .nego__sub {
   overflow: hidden;
-  font-size: 11.5px;
+  font-size: 12px;
   color: var(--ink-3);
   white-space: nowrap;
   text-overflow: ellipsis;
 }
 
 .nego__log {
-  position: relative;
+  flex: none;
+  padding: 6px 2px;
+  font-size: 13px;
+  font-weight: 650;
+  color: var(--ink-2);
 }
 
-.nego__badge {
-  position: absolute;
-  top: 4px;
-  right: 3px;
-  display: grid;
-  place-items: center;
-  min-width: 17px;
-  height: 17px;
-  padding: 0 4px;
-  border-radius: 99px;
-  font-size: 10.5px;
-  font-weight: 750;
-  color: #fff;
-  background: var(--coral);
-  box-shadow: 0 0 0 2px rgb(255 255 255 / 0.9);
-  animation: dot-pop 400ms var(--spring);
+.nego__log b {
+  color: var(--coral);
 }
 
-.nego__controls {
-  margin: 12px 0 10px;
+.nego__top .opts {
+  gap: 4px 20px;
 }
 
-.nego__chart {
-  padding: 14px 14px 12px;
-  border-radius: var(--r-lg);
+.nego__top .opt {
+  padding: 2px 0;
+  font-size: 14px;
+}
+
+.nego__top .opt__mark {
+  width: 16px;
+  height: 16px;
+}
+
+.nego__top .opt--on .opt__mark {
+  box-shadow:
+    inset 0 0 0 5px var(--g-500),
+    0 0 0 3px rgb(44 198 114 / 0.14);
 }
 
 /* 대화 */
 .nego__chat {
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  padding: 18px 0 8px;
+  gap: 14px;
+  padding: 10px 0 8px;
 }
 
-.nego__daychip {
+/* 알림 문구: 양옆 얇은 선 사이의 작은 글자 */
+.nego__notice {
   display: flex;
-  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--ink-3);
 }
 
-.nego__end {
-  align-self: center;
-  height: 30px;
-  padding: 0 14px;
-  font-size: 13px;
+.nego__notice::before,
+.nego__notice::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: rgb(29 36 51 / 0.08);
+}
+
+.nego__notice--deal {
+  color: var(--g-700);
   animation: rise var(--t-slow) var(--spring) both;
+}
+
+.nego__notice--end {
+  color: var(--coral);
 }
 
 .nego__end-spacer {
   height: 4px;
-  scroll-margin-bottom: 170px;
+  scroll-margin-bottom: 190px;
 }
 
-/* 하단 도크 */
+/* ─── 하단: 상태 한 줄 + 버튼 줄 ─── */
 .dock {
   position: fixed;
   left: 50%;
@@ -100,143 +125,94 @@
   z-index: 30;
   width: 100%;
   max-width: var(--app-w);
-  padding: 10px var(--gutter) calc(12px + var(--safe-b));
+  padding: 22px var(--gutter) calc(14px + var(--safe-b));
   transform: translateX(-50%);
-}
-
-.dock::before {
-  content: '';
-  position: absolute;
-  inset: -30px 0 0;
-  z-index: -1;
-  background: linear-gradient(180deg, rgb(238 242 247 / 0) 0%, rgb(232 238 245 / 0.9) 50%);
-  pointer-events: none;
-}
-
-.dock__bar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 8px;
-  padding: 8px 8px 8px 10px;
-  border-radius: var(--r-pill);
-  animation: rise var(--t-slow) var(--spring) both;
+  background: linear-gradient(180deg, rgb(238 242 247 / 0) 0%, rgb(232 238 245 / 0.92) 32%);
 }
 
 .dock__status {
   display: flex;
   align-items: center;
-  gap: 10px;
-  min-width: 0;
-}
-
-.dock__status div {
-  display: flex;
-  flex-direction: column;
-  min-width: 0;
-}
-
-.dock__status b {
-  font-size: 13.5px;
-  font-weight: 700;
-  white-space: nowrap;
+  gap: 8px;
+  margin: 0 2px 10px;
+  font-size: 13px;
+  font-weight: 650;
+  color: var(--ink-2);
 }
 
 .dock__status span {
-  font-size: 11.5px;
+  font-weight: 500;
   color: var(--ink-3);
-  white-space: nowrap;
 }
 
-.dock__pulse {
-  display: grid;
-  place-items: center;
+.dock__status i {
   flex: none;
-  width: 34px;
-  height: 34px;
+  width: 8px;
+  height: 8px;
   border-radius: 50%;
-  color: #fff;
+  background: var(--ink-3);
+}
+
+.dock__status i.live,
+.dock__status i.ok {
   background: var(--g-500);
+}
+
+.dock__status i.live {
   animation: pulse-ring 1.6s ease-out infinite;
 }
 
-.dock__pulse--idle {
-  animation: none;
-  filter: saturate(0.4);
-}
-
-.dock__btns {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  flex: none;
-}
-
-.dock__btns .icon-btn {
-  width: 38px;
-  height: 38px;
+.dock__status i.fail {
+  background: var(--coral);
 }
 
 .dock__speed {
-  font-size: 12.5px;
-  font-weight: 750;
-}
-
-.dock__bar--over {
-  padding-left: 16px;
-}
-
-.dock__dot {
-  flex: none;
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-}
-
-.dock__dot--ok {
-  background: var(--g-500);
-  box-shadow: 0 0 0 4px rgb(79 138 106 / 0.2);
-}
-
-.dock__dot--fail {
-  background: var(--coral);
-  box-shadow: 0 0 0 4px rgb(208 105 79 / 0.2);
-}
-
-/* ─── 사람이 직접 협상하는 입력창: 오른쪽 아래가 파여 보내기 버튼이 들어간다 ─── */
-.composer__actions {
-  display: flex;
-  gap: 6px;
-  margin-bottom: 8px;
-  overflow-x: auto;
-  scrollbar-width: none;
-}
-
-.composer__actions .chip {
-  flex: none;
-  height: 34px;
-  font-size: 13px;
-}
-
-.composer__handback {
   margin-left: auto;
-  color: var(--g-800) !important;
+  font-size: 12.5px;
+  font-weight: 650;
+  color: var(--g-700);
 }
 
+.dock__row {
+  display: flex;
+  gap: 8px;
+}
+
+.dock__row .btn {
+  height: 56px;
+}
+
+.dock__square {
+  flex: none;
+  width: 56px;
+  padding: 0;
+  color: var(--ink-2);
+  background: rgb(255 255 255 / 0.6);
+  box-shadow: inset 0 0 0 1px rgb(29 36 51 / 0.08);
+}
+
+/* ─── 직접 협상: 박스 없이 글자 링크, 가격, 밑줄 입력 ─── */
 .composer {
-  position: relative;
-}
-
-.composer__card {
-  --notch: 40px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  padding: 12px;
-  padding-right: 12px;
-  border-radius: var(--r-lg);
-  -webkit-mask: radial-gradient(circle var(--notch) at calc(100% - 30px) calc(100% - 30px), transparent calc(var(--notch) - 1px), #000 var(--notch));
-  mask: radial-gradient(circle var(--notch) at calc(100% - 30px) calc(100% - 30px), transparent calc(var(--notch) - 1px), #000 var(--notch));
+  gap: 12px;
+}
+
+.composer__links {
+  display: flex;
+  gap: 18px;
+  font-size: 13.5px;
+}
+
+.composer__link {
+  padding: 2px 0;
+  font-weight: 650;
+  color: var(--ink-2);
+}
+
+.composer__link--accent {
+  margin-left: auto;
+  color: var(--g-700);
 }
 
 .composer__row {
@@ -246,34 +222,36 @@
   gap: 8px;
 }
 
-.composer__row .segmented {
-  width: 136px;
-  flex: none;
-}
-
-.composer__input {
-  width: calc(100% - 64px);
-  height: 44px;
+.composer__row .opt {
+  font-size: 14px;
 }
 
 .composer__warn {
   font-size: 12px;
   font-weight: 600;
-  color: #8f3a26;
+  color: var(--coral);
+}
+
+.composer__send-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.composer__input {
+  flex: 1;
 }
 
 .composer__send {
-  position: absolute;
-  right: 0;
-  bottom: 0;
   display: grid;
   place-items: center;
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
+  flex: none;
+  width: 48px;
+  height: 48px;
+  border-radius: var(--r-pill);
   color: #fff;
   background: var(--g-500);
-  box-shadow: 0 12px 22px -10px rgb(26 171 94 / 0.6);
+  box-shadow: 0 10px 20px -10px rgb(26 171 94 / 0.6);
 }
 
 .composer__send svg {
@@ -281,35 +259,29 @@
 }
 
 .composer__send:disabled {
-  filter: grayscale(0.6);
-  opacity: 0.55;
+  opacity: 0.4;
 }
 
 .stepper {
   display: flex;
   align-items: center;
-  gap: 2px;
-  padding: 3px;
-  border-radius: var(--r-pill);
-  background: rgb(255 255 255 / 0.5);
-  box-shadow: inset 0 1px 3px rgb(20 24 28 / 0.1);
+  gap: 6px;
 }
 
 .stepper__btn {
   display: grid;
   place-items: center;
-  width: 32px;
-  height: 32px;
+  width: 30px;
+  height: 30px;
   border-radius: 50%;
-  color: var(--g-800);
-  background: rgb(255 255 255 / 0.85);
-  box-shadow: 0 2px 6px -2px rgb(20 24 28 / 0.3);
+  color: var(--ink-2);
+  box-shadow: inset 0 0 0 1.5px rgb(29 36 51 / 0.14);
 }
 
 .stepper__val {
-  min-width: 82px;
-  font-size: 15.5px;
-  font-weight: 750;
+  min-width: 96px;
+  font-size: 20px;
+  font-weight: 800;
   text-align: center;
 }
 
@@ -709,7 +681,3 @@
   background: var(--coral);
 }
 
-/* 도크 안의 버튼은 칸 없이 아이콘만 */
-.dock__icon {
-  color: var(--ink-2);
-}
