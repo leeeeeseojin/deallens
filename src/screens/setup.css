@@ -42,29 +42,6 @@
   color: var(--ink-2);
 }
 
-.setup__stack {
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-}
-
-.card {
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-  padding: 18px;
-}
-
-.card--quiet {
-  background: linear-gradient(145deg, rgb(255 255 255 / 0.4), rgb(255 255 255 / 0.16));
-}
-
-.card__head {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
 /* 단계 번호: 도형 없이 제목처럼 굵은 초록 그라데이션 숫자 */
 .card__step {
   display: inline-block;
@@ -77,13 +54,6 @@
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
-}
-
-.card__title {
-  flex: 1;
-  font-size: 17px;
-  font-weight: 720;
-  letter-spacing: -0.03em;
 }
 
 /* 물건: 칸 없이 아이콘과 이름만. 고른 것은 초록 글자와 아래 점으로 표시 */
@@ -248,6 +218,8 @@
 
 /* 하단 고정 버튼 */
 .setup__cta {
+  display: flex;
+  gap: 8px;
   position: fixed;
   left: 50%;
   bottom: 0;
@@ -263,31 +235,196 @@
   height: 56px;
 }
 
-/* 고른 단계: 초록빛 유리와 체크 표시 */
-.card {
-  transition:
-    background var(--t-slow) var(--ease-out),
-    box-shadow var(--t-slow) var(--ease-out);
-}
+/* ─── 단계별 설정: 박스 없이 한 단계씩 ─── */
 
-.card--done {
-  --rim-light: rgb(140 232 180 / 0.95);
-  --rim-dim: rgb(44 198 114 / 0.25);
-  background: linear-gradient(145deg, rgb(44 198 114 / 0.16) 0%, rgb(44 198 114 / 0.05) 100%);
-  box-shadow:
-    inset 0 1px 0 rgb(255 255 255 / 0.7),
-    inset 0 0 0 1px rgb(44 198 114 / 0.35),
-    0 14px 32px -16px rgb(26 171 94 / 0.45);
-}
-
-.card__check {
+/* 첫 단계가 지나면 소개 문구는 접고 브랜드만 남긴다 */
+.setup__intro {
   display: grid;
-  place-items: center;
+  grid-template-rows: 1fr;
+  transition:
+    grid-template-rows var(--t-slow) var(--ease-out),
+    opacity var(--t-med) var(--ease-out);
+}
+
+.setup__intro > * {
+  min-height: 0;
+  overflow: hidden;
+}
+
+.setup__intro {
+  overflow: hidden;
+}
+
+.setup--compact .setup__intro {
+  grid-template-rows: 0fr;
+  opacity: 0;
+}
+
+.setup--compact .setup__hero {
+  padding-bottom: 8px;
+}
+
+.setup--compact .setup__brand {
+  margin-bottom: 0;
+}
+
+/* 진행 표시: 다섯 개의 짧은 막대 */
+.wiz__progress {
+  display: flex;
+  gap: 6px;
+  margin: 4px 4px 18px;
+}
+
+.wiz__progress i {
+  flex: 1;
+  height: 4px;
+  border-radius: 99px;
+  background: rgb(29 36 51 / 0.08);
+  transition: background var(--t-slow) var(--ease-out);
+}
+
+.wiz__progress i.done {
+  background: var(--g-400);
+}
+
+.wiz__progress i.now {
+  background: linear-gradient(90deg, var(--g-500), var(--g-300));
+}
+
+/* 끝낸 단계: 위로 물러나며 뒤로 눕는다. 오래된 것일수록 더 작고 흐리다 */
+.wiz__history {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin: 0 0 14px;
+  padding: 0;
+  list-style: none;
+  perspective: 700px;
+  perspective-origin: 50% 120%;
+}
+
+.wiz__history li {
+  --depth: 1;
+  transform-origin: 50% 100%;
+  transform: rotateX(calc(var(--depth) * 9deg)) scale(calc(1 - var(--depth) * 0.035));
+  opacity: calc(1 - var(--depth) * 0.14);
+  animation: recede 620ms var(--ease-out) both;
+}
+
+/* 방금 끝낸 단계는 앞에서 쓱 내려앉듯 물러난다 */
+@keyframes recede {
+  from {
+    transform: translateY(46px) rotateX(0deg) scale(1.04);
+    opacity: 0;
+    filter: blur(4px);
+  }
+}
+
+.wiz__past {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 9px 4px;
+  text-align: left;
+  border-bottom: 1px solid rgb(29 36 51 / 0.06);
+}
+
+.wiz__past-num {
+  font-size: 17px;
+}
+
+.wiz__past-title {
   flex: none;
-  width: 22px;
-  height: 22px;
-  border-radius: var(--r-xs);
-  color: #fff;
-  background: var(--g-500);
-  animation: dot-pop 420ms var(--spring) both;
+  font-size: 13px;
+  font-weight: 650;
+  color: var(--ink-3);
+}
+
+.wiz__past-value {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--ink);
+  text-align: right;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.wiz__past-check {
+  flex: none;
+  color: var(--g-500);
+}
+
+/* 지금 단계: 아래에서 떠오르며 앞으로 다가온다 */
+.wiz__step {
+  padding: 6px 4px 0;
+  perspective: 900px;
+  animation: step-in 640ms var(--ease-out) both;
+  animation-delay: 80ms;
+}
+
+@keyframes step-in {
+  from {
+    opacity: 0;
+    transform: translateY(36px) rotateX(-10deg) scale(0.97);
+    filter: blur(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+    filter: blur(0);
+  }
+}
+
+.wiz__head {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 22px;
+}
+
+.wiz__num {
+  font-size: 40px;
+}
+
+.wiz__title {
+  font-size: 24px;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  color: var(--ink);
+}
+
+.wiz__body {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.wiz__fields {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.wiz__note {
+  margin-top: 14px;
+}
+
+.wiz__back {
+  flex: none;
+  width: 56px;
+  padding: 0;
+  background: rgb(255 255 255 / 0.55);
+  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(16px);
+  box-shadow: inset 0 0 0 1px rgb(29 36 51 / 0.08);
+}
+
+.wiz__count {
+  font-size: 13px;
+  font-weight: 650;
+  opacity: 0.75;
 }
