@@ -8,6 +8,7 @@ import { Icon } from '../ui/Icon'
 import { ITEM_ICON } from '../ui/itemIcon'
 import { RangeSlider } from '../ui/RangeSlider'
 import { InlineChoice } from '../ui/Choice'
+import { Segmented } from '../ui/Segmented'
 import type { SetupValues } from '../setup'
 import './setup.css'
 
@@ -190,10 +191,11 @@ export function SetupScreen({ value: v, onChange, onStart }: SetupScreenProps) {
           </div>
           <div className="row row--inline">
             <span className="label">내 에이전트</span>
-            <InlineChoice
+            <Segmented
+              size="sm"
               label="에이전트 품질"
-              selected={[v.agent]}
-              onToggle={(agent) => set({ agent })}
+              value={v.agent}
+              onChange={(agent) => set({ agent })}
               options={[
                 { value: 'strong', label: '강한' },
                 { value: 'weak', label: '약한' },
