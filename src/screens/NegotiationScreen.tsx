@@ -172,15 +172,15 @@ export function NegotiationScreen({ state, onChange, onExit, onReport }: Negotia
         ) : human ? (
           <div className="composer-wrap rise">
             <div className="composer__actions">
-              <button className="chip glass pressable" onClick={() => setBriefingOpen(true)}>
+              <button className="chip chip--line pressable" onClick={() => setBriefingOpen(true)}>
                 <Icon name="info" size={15} /> 브리핑
               </button>
               {theirLast !== null && waitingForHuman && (
-                <button className="chip glass pressable" onClick={() => onChange(humanAccept(state))}>
+                <button className="chip chip--line pressable" onClick={() => onChange(humanAccept(state))}>
                   <Icon name="check" size={15} /> {won(theirLast)} 수락
                 </button>
               )}
-              <button className="chip glass pressable composer__handback" onClick={() => setHandBackOpen(true)}>
+              <button className="chip chip--line pressable composer__handback" onClick={() => setHandBackOpen(true)}>
                 <Icon name="bot" size={15} /> 다시 맡기기
               </button>
             </div>
@@ -236,10 +236,10 @@ export function NegotiationScreen({ state, onChange, onExit, onReport }: Negotia
               </div>
             </div>
             <div className="dock__btns">
-              <button className="icon-btn glass pressable" onClick={() => setSpeed((s) => (s === 1 ? 2 : 1))} aria-label={`속도 ${speed}배`}>
+              <button className="icon-btn dock__icon pressable" onClick={() => setSpeed((s) => (s === 1 ? 2 : 1))} aria-label={`속도 ${speed}배`}>
                 <span className="dock__speed">{speed}×</span>
               </button>
-              <button className="icon-btn glass pressable" onClick={() => setPaused((p) => !p)} aria-label={paused ? '재생' : '일시정지'}>
+              <button className="icon-btn dock__icon pressable" onClick={() => setPaused((p) => !p)} aria-label={paused ? '재생' : '일시정지'}>
                 <Icon name={paused ? 'play' : 'pause'} size={16} />
               </button>
               <button className="btn btn--dark btn--sm pressable" onClick={() => startHuman(takeOver(state))}>

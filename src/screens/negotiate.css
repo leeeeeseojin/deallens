@@ -317,11 +317,11 @@
   color: var(--coral);
 }
 
-/* ─── 판단 요청 ─── */
+/* ─── 판단 요청: 칸 대신 인용선과 구분선 목록 ─── */
 .decision {
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 16px;
 }
 
 .decision__why {
@@ -329,35 +329,35 @@
   color: var(--ink-2);
 }
 
+/* 에이전트 초안: 왼쪽 초록 선이 있는 인용 */
 .decision__draft {
-  padding: 14px;
-  border-radius: var(--r-md);
+  padding: 2px 0 2px 14px;
+  border-left: 3px solid var(--g-400);
   font-size: 14px;
+  color: var(--ink);
 }
 
 .decision__draft-head {
   display: flex;
   align-items: center;
   gap: 6px;
-  margin-bottom: 6px;
+  margin-bottom: 4px;
   font-size: 12px;
   font-weight: 650;
-  opacity: 0.85;
+  color: var(--g-700);
 }
 
 .decision__draft-price {
   margin-left: auto;
   font-size: 14px;
   font-weight: 750;
+  color: var(--ink);
 }
 
 .decision__rec {
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 12px 14px;
-  border-radius: var(--r-md);
-  background: rgb(255 255 255 / 0.45);
 }
 
 .decision__rec > svg {
@@ -382,27 +382,24 @@
 .decision__opts {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  border-top: 1px solid rgb(29 36 51 / 0.07);
 }
 
 .decision__opt {
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 13px 14px;
-  border-radius: var(--r-md);
+  padding: 14px 2px;
   text-align: left;
+  border-bottom: 1px solid rgb(29 36 51 / 0.07);
 }
 
 .decision__opt-icon {
   display: grid;
   place-items: center;
   flex: none;
-  width: 38px;
-  height: 38px;
-  border-radius: 13px;
-  color: var(--g-700);
-  background: rgb(255 255 255 / 0.75);
+  width: 24px;
+  color: var(--ink-3);
 }
 
 .decision__opt-text {
@@ -421,34 +418,46 @@
   color: var(--ink-3);
 }
 
-.decision__opt--rec {
-  background: var(--glass-fill-raised);
+.decision__opt--rec .decision__opt-icon {
+  color: var(--g-600);
+}
+
+.decision__opt--rec .decision__opt-text b {
+  color: var(--g-800);
 }
 
 .decision__opt--take .decision__opt-icon {
-  color: #fff;
-  background: var(--ink);
+  color: var(--ink);
 }
 
-/* ─── 인수인계 브리핑 ─── */
+/* ─── 인수인계 브리핑: 숫자는 칸 없이 2×2, 구분선으로만 나눈다 ─── */
 .brief {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 18px;
 }
 
 .brief__grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 8px;
+  border-top: 1px solid rgb(29 36 51 / 0.07);
 }
 
 .brief__cell {
   display: flex;
   flex-direction: column;
   gap: 2px;
-  padding: 12px 14px;
-  border-radius: var(--r-md);
+  padding: 12px 4px;
+  border-bottom: 1px solid rgb(29 36 51 / 0.07);
+}
+
+.brief__cell:nth-child(odd) {
+  padding-right: 14px;
+  border-right: 1px solid rgb(29 36 51 / 0.07);
+}
+
+.brief__cell:nth-child(even) {
+  padding-left: 14px;
 }
 
 .brief__k {
@@ -461,12 +470,12 @@
 }
 
 .brief__v {
-  font-size: 19px;
-  font-weight: 760;
+  font-size: 20px;
+  font-weight: 780;
 }
 
 .brief__v--their {
-  color: #a86a22;
+  color: #b9741f;
 }
 
 .brief__hint {
@@ -475,18 +484,18 @@
 }
 
 .brief__bar {
-  height: 5px;
+  height: 4px;
   margin-top: 6px;
   overflow: hidden;
   border-radius: 99px;
-  background: rgb(20 24 28 / 0.1);
+  background: rgb(29 36 51 / 0.08);
 }
 
 .brief__bar i {
   display: block;
   height: 100%;
   border-radius: inherit;
-  background: linear-gradient(90deg, var(--g-400), var(--amber));
+  background: var(--g-500);
 }
 
 .brief__block {
@@ -526,21 +535,22 @@
   display: flex;
   flex-direction: column;
   gap: 2px;
-  padding: 12px 14px;
-  border-radius: var(--r-md);
+  padding-left: 14px;
+  border-left: 3px solid var(--g-400);
   font-size: 13px;
+  color: var(--ink-2);
 }
 
 .brief__next b {
   font-size: 15px;
+  color: var(--ink);
 }
 
 .brief__reply {
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 14px;
-  border-radius: var(--r-md);
+  padding: 2px 0;
   font-size: 14.5px;
   text-align: left;
 }
@@ -566,7 +576,7 @@
   color: var(--g-700);
 }
 
-/* ─── 다시 맡기기 ─── */
+/* ─── 다시 맡기기: 스위치도 칸 없이 구분선 목록 ─── */
 .handback {
   display: flex;
   flex-direction: column;
@@ -576,21 +586,25 @@
 .toggles {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  border-top: 1px solid rgb(29 36 51 / 0.07);
 }
 
 .toggle {
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 13px 14px;
-  border-radius: var(--r-md);
+  padding: 13px 2px;
   text-align: left;
+  border-bottom: 1px solid rgb(29 36 51 / 0.07);
 }
 
 .toggle > svg {
   flex: none;
-  color: var(--g-700);
+  color: var(--ink-3);
+}
+
+.toggle[aria-checked='true'] > svg {
+  color: var(--g-600);
 }
 
 .toggle > span {
@@ -614,8 +628,7 @@
   width: 46px;
   height: 28px;
   border-radius: 99px;
-  background: rgb(20 24 28 / 0.15);
-  box-shadow: inset 0 1px 3px rgb(20 24 28 / 0.2);
+  background: rgb(29 36 51 / 0.12);
   transition: background var(--t-med);
 }
 
@@ -627,8 +640,8 @@
   width: 22px;
   height: 22px;
   border-radius: 50%;
-  background: radial-gradient(circle at 35% 30%, #fff, #eef2f7);
-  box-shadow: 0 2px 6px rgb(20 24 28 / 0.35);
+  background: #fff;
+  box-shadow: 0 2px 6px rgb(29 36 51 / 0.25);
   transition: transform var(--t-med) var(--spring);
 }
 
@@ -694,4 +707,9 @@
 .activity__row--block .activity__icon {
   color: #fff;
   background: var(--coral);
+}
+
+/* 도크 안의 버튼은 칸 없이 아이콘만 */
+.dock__icon {
+  color: var(--ink-2);
 }
