@@ -109,7 +109,7 @@
   position: absolute;
   inset: -30px 0 0;
   z-index: -1;
-  background: linear-gradient(180deg, rgb(220 232 221 / 0) 0%, rgb(220 232 221 / 0.85) 50%);
+  background: linear-gradient(180deg, rgb(220 224 222 / 0) 0%, rgb(220 224 222 / 0.85) 50%);
   pointer-events: none;
 }
 
@@ -360,8 +360,7 @@
   gap: 10px;
   padding: 12px 14px;
   border-radius: var(--r-md);
-  background: rgb(255 255 255 / 0.55);
-  box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.8);
+  background: rgb(255 255 255 / 0.45);
 }
 
 .decision__rec > svg {
@@ -426,9 +425,7 @@
 }
 
 .decision__opt--rec {
-  box-shadow:
-    inset 0 0 0 1.6px var(--g-400),
-    0 12px 22px -14px rgb(47 93 70 / 0.8);
+  background: var(--glass-fill-raised);
 }
 
 .decision__opt--take .decision__opt-icon {
