@@ -1,70 +1,83 @@
-.report {
-  padding: calc(12px + env(safe-area-inset-top, 0px)) var(--gutter) calc(40px + var(--safe-b));
-}
-
+/* 성적표는 위임 설정과 같은 단계 레이아웃(.setup, .wiz__*)을 쓰고, 여기서는 내용만 꾸민다 */
 .report__top {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 14px;
+  margin: 0 -10px 10px;
 }
 
 .report__eyebrow {
-  font-size: 15px;
-  font-weight: 720;
+  font-size: 16px;
+  font-weight: 750;
 }
 
-.report__stack {
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
+/* 화면 어디든 누르면 넘어간다 */
+.report__stage {
+  cursor: pointer;
+  -webkit-user-select: none;
+  user-select: none;
 }
 
-/* 결과 요약 */
-.hero {
+.report__hint {
+  margin-top: 22px;
+  font-size: 12px;
+  color: var(--ink-3);
+  text-align: center;
+  animation: hint 2.4s ease-in-out infinite;
+}
+
+@keyframes hint {
+  0%,
+  100% {
+    opacity: 0.45;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+/* 1장: 결과. 칸 없이 큰 숫자와 링 */
+.rp-result {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  padding: 22px 20px;
-  border-radius: var(--r-xl);
-  background: var(--glass-fill);
 }
 
-.hero__main {
+.rp-result__main {
   display: flex;
   flex-direction: column;
   gap: 4px;
   min-width: 0;
 }
 
-.hero__item {
+.rp-result__item {
   font-size: 13px;
   font-weight: 650;
-  color: var(--ink-2);
+  color: var(--ink-3);
 }
 
-.hero__price {
-  font-size: 34px;
-  font-weight: 820;
+.rp-result__price {
+  font-size: 36px;
+  font-weight: 850;
   letter-spacing: -0.045em;
-  color: var(--g-950);
+  color: var(--ink);
 }
 
-.hero__sub {
-  font-size: 13.5px;
+.rp-result__sub {
+  font-size: 14px;
   color: var(--ink-2);
 }
 
-.hero__sub b {
+.rp-result__sub b {
   color: var(--g-700);
 }
 
 .hero__ring {
   position: relative;
   flex: none;
-  width: 108px;
-  height: 108px;
+  width: 112px;
+  height: 112px;
 }
 
 .ring {
@@ -82,7 +95,6 @@
   fill: none;
   stroke-width: 11;
   stroke-linecap: round;
-  filter: drop-shadow(0 4px 6px rgb(47 93 70 / 0.35));
   animation: ring-in 1.1s var(--ease-out) both;
 }
 
@@ -113,29 +125,8 @@
   color: var(--g-800);
 }
 
-/* 섹션 */
-.sec {
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-  padding: 18px;
-}
-
-.sec__head {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 8px;
-}
-
-.sec__head h2 {
-  font-size: 16.5px;
-  font-weight: 720;
-  letter-spacing: -0.03em;
-}
-
 .sec__empty {
-  font-size: 14px;
+  font-size: 15px;
   color: var(--ink-3);
 }
 
@@ -144,14 +135,25 @@
   gap: 8px;
   padding-left: 12px;
   border-left: 3px solid var(--g-400);
-  font-size: 13.5px;
+  font-size: 14px;
   color: var(--ink);
 }
 
-.sec__insight svg {
-  flex: none;
-  margin-top: 2px;
-  color: var(--g-600);
+.strat__best {
+  font-size: 11.5px;
+  font-weight: 700;
+  color: var(--g-700);
+}
+
+/* 5장: 다음 거래 제안 */
+.rp-next {
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--ink-2);
+}
+
+.rp-next b {
+  color: var(--g-700);
 }
 
 /* 분포 */
@@ -397,8 +399,3 @@
   margin-top: 2px;
 }
 
-.report__actions {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
