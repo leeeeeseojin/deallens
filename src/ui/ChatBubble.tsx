@@ -26,10 +26,9 @@ export function ConfidenceMeter({ value }: { value: number }) {
 
 interface ChatBubbleProps {
   msg: ChatMessage
-  buyerEmoji: string
 }
 
-export function ChatBubble({ msg, buyerEmoji }: ChatBubbleProps) {
+export function ChatBubble({ msg }: ChatBubbleProps) {
   const [open, setOpen] = useState(false)
   const tags = msg.tags ?? []
   const threat = tags.includes('probe') ? 'probe' : tags.includes('injection') ? 'injection' : null
@@ -38,7 +37,7 @@ export function ChatBubble({ msg, buyerEmoji }: ChatBubbleProps) {
     return (
       <div className="msg msg--buyer rise">
         <div className="msg__avatar glass" aria-hidden="true">
-          {buyerEmoji}
+          <Icon name="user" size={17} />
         </div>
         <div className="msg__col">
           <div className={`bubble glass ${threat ? 'bubble--threat' : ''} ${tags.includes('out_of_scope') ? 'bubble--scope' : ''}`}>
@@ -93,12 +92,12 @@ export function ChatBubble({ msg, buyerEmoji }: ChatBubbleProps) {
   )
 }
 
-export function TypingDots({ side, emoji }: { side: 'buyer' | 'agent'; emoji?: string }) {
+export function TypingDots({ side }: { side: 'buyer' | 'agent' }) {
   return (
     <div className={`msg msg--${side} msg--typing`} aria-live="polite">
       {side === 'buyer' && (
         <div className="msg__avatar glass" aria-hidden="true">
-          {emoji}
+          <Icon name="user" size={17} />
         </div>
       )}
       <div className={`bubble glass ${side === 'agent' ? 'glass--tint' : ''} typing`}>

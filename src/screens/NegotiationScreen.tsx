@@ -20,6 +20,7 @@ import { won } from '../engine/format'
 import { canAdvance, useAutoplay } from '../hooks/useAutoplay'
 import { Glass } from '../ui/Glass'
 import { Icon } from '../ui/Icon'
+import { ITEM_ICON } from '../ui/itemIcon'
 import { Segmented } from '../ui/Segmented'
 import { PriceGapChart } from '../ui/PriceGapChart'
 import { ChatBubble, TypingDots } from '../ui/ChatBubble'
@@ -97,10 +98,10 @@ export function NegotiationScreen({ state, onChange, onExit, onReport }: Negotia
         </button>
         <div className="nego__title">
           <span className="nego__item">
-            <span aria-hidden="true">{mandate.item.emoji}</span> {mandate.item.name}
+            <Icon name={ITEM_ICON[mandate.item.id] ?? 'keyboard'} size={16} /> {mandate.item.name}
           </span>
           <span className="nego__sub">
-            {persona.emoji} {persona.name} · {mandate.place} {mandate.time} {mandate.methods.map((m) => METHOD_LABEL[m]).join('·')}
+            {persona.name} · {mandate.place} {mandate.time} {mandate.methods.map((m) => METHOD_LABEL[m]).join('·')}
           </span>
         </div>
         <button className="icon-btn pressable nego__log" onClick={() => setLogOpen(true)} aria-label={`활동 기록, 차단 ${state.blocked}회`}>
@@ -141,9 +142,9 @@ export function NegotiationScreen({ state, onChange, onExit, onReport }: Negotia
           </span>
         </div>
         {state.messages.map((m) => (
-          <ChatBubble key={m.id} msg={m} buyerEmoji={persona.emoji} />
+          <ChatBubble key={m.id} msg={m} />
         ))}
-        {typing && <TypingDots side={state.next === 'buyer' ? 'buyer' : 'agent'} emoji={persona.emoji} />}
+        {typing && <TypingDots side={state.next === 'buyer' ? 'buyer' : 'agent'} />}
         {state.status === 'failed' && <div className="nego__end tag tag--coral">협상 종료 · {state.failReason}</div>}
         {state.status === 'agreed' && state.agreed && (
           <div className="nego__end tag tag--green">

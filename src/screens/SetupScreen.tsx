@@ -4,6 +4,7 @@ import type { Autonomy, TradeMethod } from '../engine/types'
 import { AUTONOMY_LABEL } from '../engine/types'
 import { Glass } from '../ui/Glass'
 import { Icon, type IconName } from '../ui/Icon'
+import { ITEM_ICON } from '../ui/itemIcon'
 import { RangeSlider } from '../ui/RangeSlider'
 import { Segmented } from '../ui/Segmented'
 import type { SetupValues } from '../setup'
@@ -68,8 +69,8 @@ export function SetupScreen({ value: v, onChange, onStart }: SetupScreenProps) {
                 className={`item glass pressable ${it.id === v.itemId ? 'item--on' : ''}`}
                 onClick={() => pickItem(it.id)}
               >
-                <span className="item__emoji" aria-hidden="true">
-                  {it.emoji}
+                <span className="item__icon" aria-hidden="true">
+                  <Icon name={ITEM_ICON[it.id] ?? 'keyboard'} size={24} strokeWidth={1.6} />
                 </span>
                 <span className="item__name">{it.name}</span>
               </button>
@@ -174,7 +175,7 @@ export function SetupScreen({ value: v, onChange, onStart }: SetupScreenProps) {
           <div className="personas">
             {(Object.keys(PERSONAS) as PersonaId[]).map((id) => (
               <button key={id} className="chip glass pressable" aria-pressed={v.persona === id} onClick={() => set({ persona: id })}>
-                <span aria-hidden="true">{PERSONAS[id].emoji}</span> {PERSONAS[id].name}
+                {PERSONAS[id].name}
               </button>
             ))}
           </div>

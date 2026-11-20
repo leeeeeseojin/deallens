@@ -5,6 +5,7 @@ import { STRATEGY_LABEL, type Strategy } from '../engine/types'
 import { percent, signedWon, won } from '../engine/format'
 import { Glass } from '../ui/Glass'
 import { Icon } from '../ui/Icon'
+import { ITEM_ICON } from '../ui/itemIcon'
 import './report.css'
 
 interface ReportScreenProps {
@@ -122,7 +123,7 @@ export function ReportScreen({ state, onBack, onRetry, onTune }: ReportScreenPro
         <Glass className="hero" tilt>
           <div className="hero__main">
             <span className="hero__item">
-              {mandate.item.emoji} {mandate.item.name}
+              <Icon name={ITEM_ICON[mandate.item.id] ?? 'keyboard'} size={15} /> {mandate.item.name}
             </span>
             {card.finalPrice !== null ? (
               <>

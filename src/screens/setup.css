@@ -108,10 +108,14 @@
   --spec: 0.4;
 }
 
-.item__emoji {
-  font-size: 26px;
-  line-height: 1;
-  filter: drop-shadow(0 4px 6px rgb(30 58 44 / 0.2));
+.item__icon {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  color: var(--ink-2);
+  background: rgb(255 255 255 / 0.5);
   transition: transform var(--t-med) var(--spring);
 }
 
@@ -131,8 +135,10 @@
     0 10px 20px -10px rgb(47 93 70 / 0.6);
 }
 
-.item--on .item__emoji {
-  transform: scale(1.15) translateY(-2px);
+.item--on .item__icon {
+  color: #fff;
+  background: var(--g-600);
+  transform: scale(1.06);
 }
 
 .item--on .item__name {

@@ -30,6 +30,10 @@ const PATHS = {
   flag: 'M5 21V4h11l-1.5 4L16 12H5',
   chevron: 'M9 6l6 6-6 6',
   gauge: 'M12 14l4-4M3.5 17a9 9 0 1117 0',
+  keyboard: 'M3 7h18v10H3zM7 11h.01M11 11h.01M15 11h.01M17 11h.01M8 14h8',
+  headphones: 'M4 15v-3a8 8 0 0116 0v3M4 15h3v5H4zM17 15h3v5h-3z',
+  projector: 'M3 9h18v8H3zM15.5 15a2 2 0 100-4 2 2 0 000 4zM6 12h4M6 19v-2M18 19v-2',
+  book: 'M5 4h11a3 3 0 013 3v13H8a3 3 0 01-3-3V4zM5 17a3 3 0 013-3h11',
 } as const
 
 export type IconName = keyof typeof PATHS

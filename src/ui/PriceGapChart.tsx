@@ -60,7 +60,7 @@ export function PriceGapChart({ myOffers, theirOffers, ask, floor, turn, agreedP
         </text>
         <line x1={PAD.l} x2={W - PAD.r} y1={y(floor)} y2={y(floor)} className="gap-chart__floor" />
         <text x={W - PAD.r + 6} y={y(floor) + 4} className="gap-chart__reflabel gap-chart__reflabel--floor">
-          최저가🔒
+          최저가
         </text>
 
         {/* 남은 간격 */}
