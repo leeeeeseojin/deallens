@@ -1,13 +1,11 @@
-import { useId } from 'react'
-
-/** 상대 유형마다 다른 은은한 배경 그라데이션 */
-const TONES: Record<string, [string, string]> = {
-  scenario: ['#b9e4ff', '#6aa8f0'],
-  normal: ['#bff3d4', '#3ec97f'],
-  lowballer: ['#ffd6c2', '#f08a62'],
-  staller: ['#e6d8ff', '#9a7cf0'],
-  prober: ['#ffe7b0', '#eaa73a'],
-  injector: ['#ffc9d6', '#e8628a'],
+/** 상대 유형마다 다른 단색 */
+const TONES: Record<string, string> = {
+  scenario: '#8fb4e8',
+  normal: '#6fcf97',
+  lowballer: '#f2a383',
+  staller: '#b7a2ee',
+  prober: '#efc06a',
+  injector: '#ee93ad',
 }
 
 interface AvatarProps {
@@ -15,35 +13,14 @@ interface AvatarProps {
   size?: number
 }
 
-/** 연락처 기본 사진처럼 그라데이션 원 위에 채워진 사람 실루엣 */
+/** 아이메시지 연락처처럼 단색 원 위에 흰 사람 실루엣 */
 export function Avatar({ tone = 'normal', size = 34 }: AvatarProps) {
-  const id = useId()
-  const [from, to] = TONES[tone] ?? TONES.normal
+  const color = TONES[tone] ?? TONES.normal
   return (
     <svg className="avatar" width={size} height={size} viewBox="0 0 40 40" aria-hidden="true">
-      <defs>
-        <linearGradient id={`${id}-bg`} x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0" stopColor={from} />
-          <stop offset="1" stopColor={to} />
-        </linearGradient>
-        <linearGradient id={`${id}-fg`} x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0" stopColor="#ffffff" stopOpacity="0.98" />
-          <stop offset="1" stopColor="#ffffff" stopOpacity="0.82" />
-        </linearGradient>
-        <clipPath id={`${id}-clip`}>
-          <circle cx="20" cy="20" r="20" />
-        </clipPath>
-      </defs>
-      <g clipPath={`url(#${id}-clip)`}>
-        <rect width="40" height="40" fill={`url(#${id}-bg)`} />
-        {/* 위쪽 빛 반사 */}
-        <ellipse cx="13" cy="8" rx="14" ry="8" fill="#fff" opacity="0.28" />
-        {/* 머리 */}
-        <circle cx="20" cy="16" r="7" fill={`url(#${id}-fg)`} />
-        {/* 어깨 */}
-        <path d="M5 42c0-9 6.7-15 15-15s15 6 15 15z" fill={`url(#${id}-fg)`} />
-      </g>
-      <circle cx="20" cy="20" r="19.4" fill="none" stroke="#fff" strokeOpacity="0.7" strokeWidth="1.2" />
+      <circle cx="20" cy="20" r="20" fill={color} />
+      <circle cx="20" cy="16" r="7" fill="#fff" />
+      <path d="M7.5 34.5c1.8-6.2 6.6-9.5 12.5-9.5s10.7 3.3 12.5 9.5A19.9 19.9 0 0 1 20 40a19.9 19.9 0 0 1-12.5-5.5z" fill="#fff" />
     </svg>
   )
 }
