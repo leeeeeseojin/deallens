@@ -12,9 +12,8 @@
   gap: 12px;
   margin: 0 calc(var(--gutter) * -1);
   padding: calc(10px + env(safe-area-inset-top, 0px)) var(--gutter) 12px;
-  background: rgb(248 250 252 / 0.82);
-  -webkit-backdrop-filter: blur(20px) saturate(160%);
-  backdrop-filter: blur(20px) saturate(160%);
+  /* 블러 없이 배경과 같은 단색 판. 아래로 지나가는 말풍선이 흐려지지 않게 */
+  background: #f3f6f9;
   border-bottom: 1px solid rgb(29 36 51 / 0.06);
 }
 
@@ -128,9 +127,8 @@
   max-width: var(--app-w);
   padding: 12px var(--gutter) calc(14px + var(--safe-b));
   transform: translateX(-50%);
-  background: rgb(248 250 252 / 0.82);
-  -webkit-backdrop-filter: blur(20px) saturate(160%);
-  backdrop-filter: blur(20px) saturate(160%);
+  /* 블러 없이 배경과 같은 단색 판. 아래로 지나가는 말풍선이 흐려지지 않게 */
+  background: #f3f6f9;
   border-top: 1px solid rgb(29 36 51 / 0.06);
 }
 
