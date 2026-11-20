@@ -45,7 +45,7 @@ export function PriceGapChart({ myOffers, theirOffers, ask, floor, turn, agreedP
       <svg viewBox={`0 0 ${W} ${H}`} role="img" aria-label={`가격 흐름. 내 제안 ${myLast ? won(myLast.price) : '없음'}, 상대 제안 ${theirLast ? won(theirLast.price) : '없음'}`}>
         <defs>
           <linearGradient id="gap-band" x1="0" x2="0" y1="0" y2="1">
-            <stop offset="0" stopColor="#4f8a6a" stopOpacity="0.22" />
+            <stop offset="0" stopColor="#2cc672" stopOpacity="0.22" />
             <stop offset="1" stopColor="#d99a4e" stopOpacity="0.18" />
           </linearGradient>
           <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">

@@ -24,8 +24,8 @@ function Ring({ value, label }: { value: number; label: string }) {
     <svg className="ring" viewBox="0 0 120 120" role="img" aria-label={label}>
       <defs>
         <linearGradient id="ring-g" x1="0" x2="1" y1="0" y2="1">
-          <stop offset="0" stopColor="#9cc3a8" />
-          <stop offset="1" stopColor="#2f5d46" />
+          <stop offset="0" stopColor="#8ee8b4" />
+          <stop offset="1" stopColor="#15904f" />
         </linearGradient>
       </defs>
       <circle cx="60" cy="60" r={r} className="ring__track" />

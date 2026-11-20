@@ -74,7 +74,7 @@
 
 .ring__track {
   fill: none;
-  stroke: rgb(30 58 44 / 0.08);
+  stroke: rgb(20 24 28 / 0.08);
   stroke-width: 11;
 }
 
@@ -164,7 +164,7 @@
 }
 
 .dist__axis {
-  stroke: rgb(30 58 44 / 0.2);
+  stroke: rgb(20 24 28 / 0.2);
   stroke-width: 1.5;
 }
 
@@ -184,7 +184,7 @@
 
 .dist__dot--hold { fill: var(--g-700); }
 .dist__dot--balanced { fill: var(--g-400); }
-.dist__dot--quick { fill: #c9b27a; }
+.dist__dot--quick { fill: #a9e9c6; }
 
 .dist__me line {
   stroke: var(--g-950);
@@ -227,7 +227,7 @@
 
 .dist__key--hold { --k: var(--g-700); }
 .dist__key--balanced { --k: var(--g-400); }
-.dist__key--quick { --k: #c9b27a; }
+.dist__key--quick { --k: #a9e9c6; }
 
 .dist__fail {
   color: #8f3a26;
