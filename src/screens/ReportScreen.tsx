@@ -1,11 +1,9 @@
-import { useMemo } from 'react'
+import { useEffect, useMemo, useState, type ReactNode } from 'react'
 import type { NegState } from '../engine/negotiation'
 import { buildScorecard, type ShadowRun } from '../engine/scorecard'
 import { STRATEGY_LABEL, type Strategy } from '../engine/types'
 import { percent, signedWon, won } from '../engine/format'
-import { Glass } from '../ui/Glass'
 import { Icon } from '../ui/Icon'
-import { ITEM_ICON } from '../ui/itemIcon'
 import './report.css'
 
 interface ReportScreenProps {
@@ -101,41 +99,50 @@ function Distribution({ runs, actual, floor, ask }: { runs: ShadowRun[]; actual:
   )
 }
 
+const TOTAL = 5
+
+interface ReportStep {
+  title: string
+  summary: string
+  body: ReactNode
+}
+
+/**
+ * 협상 성적표. 위임 설정처럼 한 번에 한 장씩, 화면을 누를 때마다 다음 장으로 넘어간다.
+ * 본 장은 위로 물러나 요약 한 줄로 쌓인다.
+ */
 export function ReportScreen({ state, onBack, onRetry, onTune }: ReportScreenProps) {
   const card = useMemo(() => buildScorecard(state), [state])
+  const [step, setStep] = useState(1)
   const { mandate } = state.config
   const best = card.shadow.best
   const top = card.shadow.topPercent
+  const last = step === TOTAL
+  const ivTotal = card.interventions.reduce((sum, iv) => sum + (iv.delta ?? 0), 0)
 
-  return (
-    <main className="report">
-      <header className="report__top">
-        <button className="icon-btn glass pressable" onClick={onBack} aria-label="협상 화면으로">
-          <Icon name="back" />
-        </button>
-        <span className="report__eyebrow">협상 성적표</span>
-        <button className="icon-btn glass pressable" onClick={onRetry} aria-label="같은 조건으로 다시">
-          <Icon name="refresh" size={18} />
-        </button>
-      </header>
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }, [step])
 
-      <div className="report__stack stagger">
-        <Glass className="hero" tilt>
-          <div className="hero__main">
-            <span className="hero__item">
-              <Icon name={ITEM_ICON[mandate.item.id] ?? 'keyboard'} size={15} /> {mandate.item.name}
-            </span>
+  const steps: ReportStep[] = [
+    {
+      title: '결과는 어땠나요?',
+      summary: card.finalPrice !== null ? `${won(card.finalPrice)}${top !== null ? ` · 상위 ${top}%` : ''}` : '거래 실패',
+      body: (
+        <div className="rp-result">
+          <div className="rp-result__main">
+            <span className="rp-result__item">{mandate.item.name}</span>
             {card.finalPrice !== null ? (
               <>
-                <b className="hero__price num">{won(card.finalPrice)}</b>
-                <span className="hero__sub">
+                <b className="rp-result__price num">{won(card.finalPrice)}</b>
+                <span className="rp-result__sub">
                   {state.agreed?.method === 'delivery' ? '택배' : '직거래'} · 확보 여유 <b>{percent(card.margin ?? 0)}</b>
                 </span>
               </>
             ) : (
               <>
-                <b className="hero__price">거래 실패</b>
-                <span className="hero__sub">{state.failReason}</span>
+                <b className="rp-result__price">거래 실패</b>
+                <span className="rp-result__sub">{state.failReason}</span>
               </>
             )}
           </div>
@@ -155,21 +162,22 @@ export function ReportScreen({ state, onBack, onRetry, onTune }: ReportScreenPro
               )}
             </div>
           </div>
-        </Glass>
-
-        <Glass className="sec">
-          <div className="sec__head">
-            <h2>같은 상대, 다른 전략이었다면</h2>
-            <span className="tag tag--sky num">그림자 {card.shadow.n}회</span>
-          </div>
+        </div>
+      ),
+    },
+    {
+      title: '다른 전략이었다면?',
+      summary: best && best.delta !== null && best.delta > 500 ? `${best.label} ${signedWon(best.delta)}` : `그림자 협상 ${card.shadow.n}회`,
+      body: (
+        <>
           <Distribution runs={card.shadow.runs} actual={card.finalPrice} floor={mandate.floorPrice} ask={mandate.askPrice} />
           <ul className="strats">
             {card.shadow.byStrategy.map((s) => (
-              <li key={s.strategy} className={`strat ${best?.strategy === s.strategy ? 'strat--best' : ''}`}>
+              <li key={s.strategy} className="strat">
                 <span className={`strat__dot dist__key--${s.strategy}`} />
                 <span className="strat__name">
                   {s.label}
-                  {best?.strategy === s.strategy && <span className="tag tag--green">기대값 최고</span>}
+                  {best?.strategy === s.strategy && <span className="strat__best">기대값 최고</span>}
                 </span>
                 <span className="strat__vals">
                   <b className="num">{s.mean !== null ? won(s.mean) : '—'}</b>
@@ -183,74 +191,159 @@ export function ReportScreen({ state, onBack, onRetry, onTune }: ReportScreenPro
           </ul>
           {best && best.delta !== null && best.delta > 500 && (
             <p className="sec__insight">
-              <Icon name="sparkle" size={15} /> 더 {best.label === '버티기' ? '버티는' : best.label === '빠른 거래' ? '빨리 끝내는' : '균형 잡힌'} 전략이었다면 평균 <b>{won(best.delta)}</b>을 더 받을 수 있었어요.
+              더 {best.label === '버티기' ? '버티는' : best.label === '빠른 거래' ? '빨리 끝내는' : '균형 잡힌'} 전략이었다면 평균 <b>{won(best.delta)}</b>을 더 받을 수 있었어요.
             </p>
           )}
-        </Glass>
-
-        <Glass className="sec">
-          <div className="sec__head">
-            <h2>내 개입은 도움이 됐을까</h2>
-            <span className="tag num">{card.interventions.length}회</span>
-          </div>
-          {card.interventions.length === 0 ? (
-            <p className="sec__empty">이번 협상은 개입 없이 에이전트가 끝냈어요.</p>
-          ) : (
-            <ul className="ivs">
-              {card.interventions.map((iv, i) => (
-                <li key={i} className={`iv iv--${iv.verdict}`}>
-                  <span className="iv__badge">
-                    <Icon name={iv.verdict === 'better' ? 'arrowUp' : iv.verdict === 'worse' ? 'arrowDown' : 'minus'} size={15} />
-                  </span>
-                  <span className="iv__text">
-                    <b>{iv.label}</b>
-                    <span>{iv.note}</span>
-                  </span>
-                  {iv.delta !== null && <span className="iv__delta num">{signedWon(iv.delta)}</span>}
-                </li>
-              ))}
-            </ul>
-          )}
-        </Glass>
-
-        <Glass className="sec">
-          <div className="sec__head">
-            <h2>막아낸 시도</h2>
-            <span className={`tag num ${card.blocked.length ? 'tag--coral' : ''}`}>{card.blocked.length}회</span>
-          </div>
-          {card.blocked.length === 0 ? (
-            <p className="sec__empty">떠보기나 주입 시도가 없었어요.</p>
-          ) : (
-            <ul className="blocked">
-              {card.blocked.map((e) => (
-                <li key={e.seq}>
-                  <Icon name="shield" size={14} /> <span>{e.detail}</span>
-                  <span className="num">{e.turn}턴</span>
-                </li>
-              ))}
-            </ul>
-          )}
-        </Glass>
-
-        <div className="caveats">
-          <Icon name="info" size={15} />
-          <div>
-            {card.caveats.map((c) => (
-              <p key={c}>{c}</p>
+        </>
+      ),
+    },
+    {
+      title: '내 개입은 도움이 됐을까요?',
+      summary: card.interventions.length ? `${card.interventions.length}회 · ${signedWon(ivTotal)}` : '개입 없음',
+      body:
+        card.interventions.length === 0 ? (
+          <p className="sec__empty">이번 협상은 개입 없이 에이전트가 끝냈어요.</p>
+        ) : (
+          <ul className="ivs">
+            {card.interventions.map((iv, i) => (
+              <li key={i} className={`iv iv--${iv.verdict}`}>
+                <span className="iv__badge">
+                  <Icon name={iv.verdict === 'better' ? 'arrowUp' : iv.verdict === 'worse' ? 'arrowDown' : 'minus'} size={15} />
+                </span>
+                <span className="iv__text">
+                  <b>{iv.label}</b>
+                  <span>{iv.note}</span>
+                </span>
+                {iv.delta !== null && <span className="iv__delta num">{signedWon(iv.delta)}</span>}
+              </li>
             ))}
+          </ul>
+        ),
+    },
+    {
+      title: '무엇을 막아냈나요?',
+      summary: card.blocked.length ? `${card.blocked.length}회 차단` : '시도 없음',
+      body:
+        card.blocked.length === 0 ? (
+          <p className="sec__empty">떠보기나 주입 시도가 없었어요.</p>
+        ) : (
+          <ul className="blocked">
+            {card.blocked.map((e) => (
+              <li key={e.seq}>
+                <Icon name="shield" size={14} /> <span>{e.detail}</span>
+                <span className="num">{e.turn}턴</span>
+              </li>
+            ))}
+          </ul>
+        ),
+    },
+    {
+      title: '다음 거래는 이렇게',
+      summary: best ? `${best.label} 전략 추천` : '',
+      body: (
+        <>
+          <p className="rp-next">
+            {best ? (
+              <>
+                같은 상대라면 <b>‘{best.label}’</b> 전략의 기대값이 가장 높았어요. 다음 거래 설정에 바로 반영할 수 있어요.
+              </>
+            ) : (
+              '이번 결과를 바탕으로 다음 거래 설정을 고쳐 보세요.'
+            )}
+          </p>
+          <div className="caveats">
+            <Icon name="info" size={15} />
+            <div>
+              {card.caveats.map((c) => (
+                <p key={c}>{c}</p>
+              ))}
+            </div>
           </div>
-        </div>
+        </>
+      ),
+    },
+  ]
 
-        <div className="report__actions">
-          {best && (
-            <button className="btn btn--primary btn--block pressable" onClick={() => onTune(best.strategy)}>
-              다음 거래는 ‘{best.label}’ 전략으로 설정하기
-            </button>
-          )}
-          <button className="btn btn--ghost btn--block pressable" onClick={onRetry}>
-            <Icon name="refresh" size={16} /> 같은 조건으로 다시 협상
+  const current = steps[step - 1]
+  const advance = () => {
+    if (!last) setStep((s) => s + 1)
+  }
+
+  return (
+    <main className="setup setup--compact report">
+      <div className="setup__top">
+        <header className="report__top">
+          <button className="icon-btn pressable" onClick={onBack} aria-label="협상 화면으로">
+            <Icon name="back" />
           </button>
+          <span className="report__eyebrow">협상 성적표</span>
+          <button className="icon-btn pressable" onClick={onRetry} aria-label="같은 조건으로 다시">
+            <Icon name="refresh" size={18} />
+          </button>
+        </header>
+        <div className="wiz__progress" role="progressbar" aria-valuemin={1} aria-valuemax={TOTAL} aria-valuenow={step} aria-label={`${TOTAL}장 중 ${step}장`}>
+          {steps.map((_, i) => (
+            <i key={i} className={i + 1 < step ? 'done' : i + 1 === step ? 'now' : ''} />
+          ))}
         </div>
+      </div>
+
+      {/* 화면 어디든 누르면 다음 장으로 */}
+      <div className="wiz__stage report__stage" onClick={advance}>
+        {step > 1 && (
+          <ol className="wiz__history" aria-label="본 장">
+            {steps.slice(0, step - 1).map((s, i) => (
+              <li key={i} style={{ ['--depth' as string]: step - 1 - i }}>
+                <button
+                  className="wiz__past pressable"
+                  onClick={(e) => {
+                    e.stopPropagation()
+                    setStep(i + 1)
+                  }}
+                  aria-label={`${i + 1}장 ${s.title} 다시 보기`}
+                >
+                  <span className="card__step wiz__past-num">{i + 1}</span>
+                  <span className="wiz__past-title">{s.title}</span>
+                  <span className="wiz__past-value">{s.summary}</span>
+                </button>
+              </li>
+            ))}
+          </ol>
+        )}
+
+        <section key={step} className="wiz__step" aria-labelledby={`rp-${step}`}>
+          <div className="wiz__head">
+            <span className="card__step wiz__num">{step}</span>
+            <h2 className="wiz__title" id={`rp-${step}`}>
+              {current.title}
+            </h2>
+          </div>
+          <div className="wiz__body">{current.body}</div>
+          {!last && <p className="report__hint">화면을 누르면 다음으로 넘어가요</p>}
+        </section>
+      </div>
+
+      <div className="setup__cta">
+        {step > 1 && (
+          <button className="btn btn--ghost pressable wiz__back" onClick={() => setStep((s) => s - 1)} aria-label="이전 장">
+            <Icon name="back" size={18} />
+          </button>
+        )}
+        {last ? (
+          best ? (
+            <button className="btn btn--primary btn--block pressable" onClick={() => onTune(best.strategy)}>
+              ‘{best.label}’ 전략으로 다시 설정
+            </button>
+          ) : (
+            <button className="btn btn--primary btn--block pressable" onClick={onRetry}>
+              같은 조건으로 다시 협상
+            </button>
+          )
+        ) : (
+          <button className="btn btn--primary btn--block pressable" onClick={advance}>
+            다음 <span className="wiz__count num">{step}/{TOTAL}</span>
+          </button>
+        )}
       </div>
     </main>
   )
