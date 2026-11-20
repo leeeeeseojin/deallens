@@ -98,7 +98,7 @@ p {
   height: 80vmax;
   right: -40vmax;
   top: -30vmax;
-  background: radial-gradient(circle, rgb(90 217 147 / 0.24), transparent 62%);
+  background: radial-gradient(circle, rgb(90 217 147 / 0.32), transparent 62%);
 }
 
 .ambient__glow--sky {
@@ -106,7 +106,7 @@ p {
   height: 70vmax;
   left: -35vmax;
   bottom: -30vmax;
-  background: radial-gradient(circle, rgb(150 180 230 / 0.26), transparent 62%);
+  background: radial-gradient(circle, rgb(150 180 230 / 0.34), transparent 62%);
   animation-delay: -12s;
 }
 
