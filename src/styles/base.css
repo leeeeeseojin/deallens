@@ -25,6 +25,14 @@ body {
 button,
 input,
 textarea,
+select,
+svg text {
+  font-family: var(--font);
+}
+
+button,
+input,
+textarea,
 select {
   font: inherit;
   color: inherit;
