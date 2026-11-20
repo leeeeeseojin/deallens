@@ -66,84 +66,40 @@ p {
   white-space: nowrap;
 }
 
-/* ─── 배경: 맑은 흰 바탕 위에 선명한 민트 도형. 유리 뒤에서 번져 보인다 ─── */
+/* ─── 배경: 차갑고 맑은 흰 바탕. 초록은 강조 요소에만 쓰고 배경에는 아주 옅은 빛만 둔다 ─── */
 .ambient {
   position: fixed;
   inset: 0;
   z-index: 0;
   overflow: hidden;
   pointer-events: none;
-  background: linear-gradient(180deg, #f4f7fb 0%, var(--bg) 55%, var(--bg-deep) 100%);
+  background: linear-gradient(180deg, #f6f8fb 0%, var(--bg) 55%, var(--bg-deep) 100%);
 }
 
-.ambient__shape {
-  position: absolute;
-  border-radius: 28%;
-  background: linear-gradient(135deg, #8ef5b8 0%, #3fe08a 55%, #22c96f 100%);
-  box-shadow: 0 30px 60px -30px rgb(34 201 111 / 0.55);
-  will-change: transform;
-  animation: bob 24s ease-in-out infinite alternate;
-}
-
-/* 오른쪽 위 큰 사각형 */
-.ambient__shape--1 {
-  width: min(58vw, 260px);
-  height: min(58vw, 260px);
-  top: 70px;
-  right: max(-14vw, calc(50% - 300px));
-}
-
-/* 왼쪽 가운데 작은 사각형 */
-.ambient__shape--2 {
-  width: min(30vw, 130px);
-  height: min(30vw, 130px);
-  top: 46vh;
-  left: max(-8vw, calc(50% - 250px));
-  animation-duration: 30s;
-  animation-delay: -10s;
-}
-
-/* 오른쪽 아래 납작한 사각형 */
-.ambient__shape--3 {
-  width: min(44vw, 190px);
-  height: min(26vw, 110px);
-  bottom: 14vh;
-  right: max(-6vw, calc(50% - 260px));
-  border-radius: 30px;
-  animation-duration: 34s;
-  animation-delay: -18s;
-}
-
-/* 왼쪽 아래 동그라미 */
-.ambient__shape--4 {
-  width: min(22vw, 92px);
-  height: min(22vw, 92px);
-  top: 72vh;
-  left: max(6vw, calc(50% - 190px));
-  border-radius: 50%;
-  opacity: 0.85;
-  animation-duration: 28s;
-  animation-delay: -5s;
-}
-
-.ambient__shape {
-  transition: opacity 600ms ease;
-}
-
-.ambient--quiet .ambient__shape {
-  opacity: 0.32;
-}
-
-/* 가장자리의 은은한 민트 번짐 */
+/* 유리가 비칠 수 있게 깔아 두는 아주 옅은 빛 */
 .ambient__glow {
   position: absolute;
+  border-radius: 50%;
+  filter: blur(40px);
+  will-change: transform;
+  animation: bob 30s ease-in-out infinite alternate;
+}
+
+.ambient__glow--mint {
+  width: 80vmax;
+  height: 80vmax;
+  right: -40vmax;
+  top: -30vmax;
+  background: radial-gradient(circle, rgb(90 217 147 / 0.14), transparent 62%);
+}
+
+.ambient__glow--sky {
   width: 70vmax;
   height: 70vmax;
-  left: -30vmax;
-  bottom: -35vmax;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgb(90 217 147 / 0.28), transparent 65%);
-  filter: blur(30px);
+  left: -35vmax;
+  bottom: -30vmax;
+  background: radial-gradient(circle, rgb(150 180 230 / 0.16), transparent 62%);
+  animation-delay: -12s;
 }
 
 .ambient__grain {
