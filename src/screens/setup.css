@@ -262,3 +262,32 @@
 .setup__cta .btn {
   height: 56px;
 }
+
+/* 고른 단계: 초록빛 유리와 체크 표시 */
+.card {
+  transition:
+    background var(--t-slow) var(--ease-out),
+    box-shadow var(--t-slow) var(--ease-out);
+}
+
+.card--done {
+  --rim-light: rgb(140 232 180 / 0.95);
+  --rim-dim: rgb(44 198 114 / 0.25);
+  background: linear-gradient(145deg, rgb(44 198 114 / 0.16) 0%, rgb(44 198 114 / 0.05) 100%);
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.7),
+    inset 0 0 0 1px rgb(44 198 114 / 0.35),
+    0 14px 32px -16px rgb(26 171 94 / 0.45);
+}
+
+.card__check {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 22px;
+  height: 22px;
+  border-radius: var(--r-xs);
+  color: #fff;
+  background: var(--g-500);
+  animation: dot-pop 420ms var(--spring) both;
+}

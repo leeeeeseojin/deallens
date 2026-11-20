@@ -1,3 +1,4 @@
+import { useState, type SyntheticEvent } from 'react'
 import { ITEMS, findItem } from '../engine/items'
 import { PERSONAS, type PersonaId } from '../engine/personas'
 import type { Autonomy, TradeMethod } from '../engine/types'
@@ -36,6 +37,23 @@ export function SetupScreen({ value: v, onChange, onStart }: SetupScreenProps) {
     const it = findItem(id)
     set({ itemId: id, askPrice: it.defaultAsk, floorPrice: it.defaultFloor })
   }
+  // 단계별로 사용자가 직접 고른 카드를 기억해 초록빛으로 표시한다
+  const [done, setDone] = useState<number[]>([])
+  const mark = (n: number) => setDone((d) => (d.includes(n) ? d : [...d, n]))
+  const stepProps = (n: number, extra = '') => ({
+    className: ['card', extra, done.includes(n) && 'card--done'].filter(Boolean).join(' '),
+    onClickCapture: (e: SyntheticEvent) => {
+      if ((e.target as HTMLElement).closest('button, input')) mark(n)
+    },
+    onChangeCapture: () => mark(n),
+  })
+  const check = (n: number) =>
+    done.includes(n) ? (
+      <span className="card__check" aria-label="선택 완료">
+        <Icon name="check" size={14} strokeWidth={2.4} />
+      </span>
+    ) : null
+
   const sliderMin = Math.round((item.defaultFloor * 0.6) / 1000) * 1000
   const sliderMax = Math.round((item.defaultAsk * 1.3) / 1000) * 1000
 
@@ -47,18 +65,19 @@ export function SetupScreen({ value: v, onChange, onStart }: SetupScreenProps) {
           <span className="setup__logo">DealLens</span>
         </div>
         <h1 className="setup__title">
-          에이전트에게 맡겨도,
+          흥정은 AI가 대신,
           <br />
-          <em>손해는 보이게.</em>
+          <em>손해는 한눈에.</em>
         </h1>
-        <p className="setup__sub">어디까지 맡길지 정해 주세요. 범위 밖의 약속은 코드가 막아요.</p>
+        <p className="setup__sub">원하는 가격과 조건만 알려주세요. 정한 범위를 넘는 약속은 하지 않아요.</p>
       </header>
 
       <div className="setup__stack stagger">
-        <Glass className="card">
+        <Glass {...stepProps(1)}>
           <div className="card__head">
             <span className="card__step">1</span>
             <h2 className="card__title">무엇을 파나요?</h2>
+            {check(1)}
           </div>
           <div className="items" role="radiogroup" aria-label="판매 물건">
             {ITEMS.map((it) => (
@@ -80,10 +99,11 @@ export function SetupScreen({ value: v, onChange, onStart }: SetupScreenProps) {
           <p className="caption">{item.condition}</p>
         </Glass>
 
-        <Glass className="card">
+        <Glass {...stepProps(2)}>
           <div className="card__head">
             <span className="card__step">2</span>
             <h2 className="card__title">가격 범위</h2>
+            {check(2)}
           </div>
           <RangeSlider
             min={sliderMin}
@@ -95,10 +115,11 @@ export function SetupScreen({ value: v, onChange, onStart }: SetupScreenProps) {
           />
         </Glass>
 
-        <Glass className="card">
+        <Glass {...stepProps(3)}>
           <div className="card__head">
             <span className="card__step">3</span>
             <h2 className="card__title">거래 조건</h2>
+            {check(3)}
           </div>
           <div className="row">
             <span className="label">거래 방식</span>
@@ -135,10 +156,11 @@ export function SetupScreen({ value: v, onChange, onStart }: SetupScreenProps) {
           </div>
         </Glass>
 
-        <Glass className="card">
+        <Glass {...stepProps(4)}>
           <div className="card__head">
             <span className="card__step">4</span>
             <h2 className="card__title">얼마나 맡길까요?</h2>
+            {check(4)}
           </div>
           <div className="autonomy" role="radiogroup" aria-label="자율성 단계">
             {AUTONOMY.map((a) => (
@@ -162,11 +184,12 @@ export function SetupScreen({ value: v, onChange, onStart }: SetupScreenProps) {
           <p className="caption">협상 도중에도 언제든 바꿀 수 있어요.</p>
         </Glass>
 
-        <Glass className="card card--quiet">
+        <Glass {...stepProps(5, 'card--quiet')}>
           <div className="card__head">
             <span className="card__step">5</span>
             <h2 className="card__title">데모 상대</h2>
             <span className="tag tag--sky">시뮬레이터</span>
+            {check(5)}
           </div>
           <div className="personas">
             {(Object.keys(PERSONAS) as PersonaId[]).map((id) => (
