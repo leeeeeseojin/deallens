@@ -142,9 +142,9 @@ export function NegotiationScreen({ state, onChange, onExit, onReport }: Negotia
           </span>
         </div>
         {state.messages.map((m) => (
-          <ChatBubble key={m.id} msg={m} />
+          <ChatBubble key={m.id} msg={m} tone={state.config.persona} />
         ))}
-        {typing && <TypingDots side={state.next === 'buyer' ? 'buyer' : 'agent'} />}
+        {typing && <TypingDots side={state.next === 'buyer' ? 'buyer' : 'agent'} tone={state.config.persona} />}
         {state.status === 'failed' && <div className="nego__end tag tag--coral">협상 종료 · {state.failReason}</div>}
         {state.status === 'agreed' && state.agreed && (
           <div className="nego__end tag tag--green">

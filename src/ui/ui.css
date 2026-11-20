@@ -338,12 +338,14 @@
 
 .msg__avatar {
   flex: none;
-  display: grid;
-  place-items: center;
   width: 34px;
   height: 34px;
   border-radius: 50%;
-  font-size: 17px;
+  box-shadow: 0 6px 14px -6px rgb(60 80 120 / 0.45);
+}
+
+.avatar {
+  display: block;
 }
 
 .msg__who {

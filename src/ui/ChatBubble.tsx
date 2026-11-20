@@ -2,6 +2,7 @@ import { useState } from 'react'
 import type { ChatMessage } from '../engine/types'
 import { METHOD_LABEL } from '../engine/types'
 import { Icon } from './Icon'
+import { Avatar } from './Avatar'
 
 function confidenceLevel(c: number): { label: string; tone: 'high' | 'mid' | 'low' } {
   if (c >= 0.66) return { label: '확신 높음', tone: 'high' }
@@ -26,9 +27,11 @@ export function ConfidenceMeter({ value }: { value: number }) {
 
 interface ChatBubbleProps {
   msg: ChatMessage
+  /** 상대 유형. 프로필 색을 정한다 */
+  tone?: string
 }
 
-export function ChatBubble({ msg }: ChatBubbleProps) {
+export function ChatBubble({ msg, tone }: ChatBubbleProps) {
   const [open, setOpen] = useState(false)
   const tags = msg.tags ?? []
   const threat = tags.includes('probe') ? 'probe' : tags.includes('injection') ? 'injection' : null
@@ -36,8 +39,8 @@ export function ChatBubble({ msg }: ChatBubbleProps) {
   if (msg.from === 'buyer') {
     return (
       <div className="msg msg--buyer rise">
-        <div className="msg__avatar glass" aria-hidden="true">
-          <Icon name="user" size={17} />
+        <div className="msg__avatar" aria-hidden="true">
+          <Avatar tone={tone} />
         </div>
         <div className="msg__col">
           <div className={`bubble glass ${threat ? 'bubble--threat' : ''} ${tags.includes('out_of_scope') ? 'bubble--scope' : ''}`}>
@@ -92,12 +95,12 @@ export function ChatBubble({ msg }: ChatBubbleProps) {
   )
 }
 
-export function TypingDots({ side }: { side: 'buyer' | 'agent' }) {
+export function TypingDots({ side, tone }: { side: 'buyer' | 'agent'; tone?: string }) {
   return (
     <div className={`msg msg--${side} msg--typing`} aria-live="polite">
       {side === 'buyer' && (
-        <div className="msg__avatar glass" aria-hidden="true">
-          <Icon name="user" size={17} />
+        <div className="msg__avatar" aria-hidden="true">
+          <Avatar tone={tone} />
         </div>
       )}
       <div className={`bubble glass ${side === 'agent' ? 'glass--tint' : ''} typing`}>
