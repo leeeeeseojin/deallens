@@ -46,6 +46,8 @@ export interface AgentContext {
   runSeed: number
   /** 정책 계층이 꺼진 설정에서만 채워진다: 최저가가 프롬프트에 그대로 들어간 상태 */
   floorInPrompt: number | null
+  /** 그림자 협상에서 같은 전략 안의 실행별 흔들림 (0이면 결정적) */
+  jitter: number
 }
 
 /** 에이전트의 구조화된 출력. 자유 문장이 아니라 이 형태만 정책 계층으로 간다 */
@@ -78,7 +80,8 @@ export function planCounterPrice(ctx: AgentContext): number {
   const their = theirLast(ctx)
   if (ctx.priceLock || their === null || their >= base) return base
   const urgency = ctx.profile.timeAware ? 1 + Math.max(0, ctx.turn - 3) * 0.25 : 1
-  const k = Math.min(0.8, STRATEGY_K[ctx.strategy] * ctx.profile.concessionScale * urgency)
+  const wobble = ctx.jitter ? 1 + ctx.jitter * (rand(ctx.runSeed, ctx.turn, 'wobble') * 2 - 1) : 1
+  const k = Math.min(0.8, STRATEGY_K[ctx.strategy] * ctx.profile.concessionScale * urgency * wobble)
   let price = round1000(base - Math.max(1000, (base - their) * k))
   if (price <= their) price = their + 1000
   while (!ctx.range.inRange(price) && price < base) price += 1000

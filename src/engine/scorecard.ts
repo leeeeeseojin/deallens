@@ -54,7 +54,7 @@ export interface Scorecard {
 }
 
 export function shadowConfig(base: NegConfig, strategy: Strategy, runSeed: number): NegConfig {
-  return { ...base, autonomy: 'full', strategy, runSeed }
+  return { ...base, autonomy: 'full', strategy, runSeed, jitter: 0.6 }
 }
 
 /** 같은 출발점, 같은 상대에서 다른 전략의 에이전트로 여러 번 다시 돌린다 */

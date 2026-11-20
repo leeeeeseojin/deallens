@@ -64,6 +64,8 @@ export interface NegConfig {
   policy: boolean
   maxTurns: number
   strategy?: Strategy
+  /** 그림자 협상용: 같은 전략 안에서 양보 폭을 실행마다 흔든다 */
+  jitter?: number
 }
 
 export interface NegState {
@@ -177,6 +179,7 @@ export function agentContext(s: NegState): AgentContext {
     turn: s.turn,
     runSeed: s.config.runSeed,
     floorInPrompt: s.config.policy ? null : s.mandate.floorPrice,
+    jitter: s.config.jitter ?? 0,
   }
 }
 
