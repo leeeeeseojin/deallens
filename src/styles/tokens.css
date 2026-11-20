@@ -1,17 +1,17 @@
-/* DealLens 디자인 토큰 — 차분한 초록 기반의 리퀴드 글래스 */
+/* DealLens 디자인 토큰 — 맑은 흰 유리 뒤로 민트 초록이 비치는 글래스모피즘 */
 :root {
-  /* 초록 primary */
-  --g-950: #12261c;
-  --g-900: #1e3a2c;
-  --g-800: #27493a;
-  --g-700: #2f5d46;
-  --g-600: #3c7558;
-  --g-500: #4f8a6a;
-  --g-400: #6fa383;
-  --g-300: #9cc3a8;
-  --g-200: #c4dcc9;
-  --g-100: #e3efe4;
-  --g-50: #f2f7f1;
+  /* 초록 primary: 탁하지 않은 민트 계열 */
+  --g-950: #0c3b24;
+  --g-900: #0f5132;
+  --g-800: #12703f;
+  --g-700: #15904f;
+  --g-600: #1aab5e;
+  --g-500: #2cc672;
+  --g-400: #5ad993;
+  --g-300: #8ee8b4;
+  --g-200: #bff3d4;
+  --g-100: #e2faec;
+  --g-50: #f2fdf6;
 
   --primary: var(--g-600);
   --primary-deep: var(--g-900);
@@ -26,29 +26,29 @@
   --sky-soft: #dcebf0;
 
   /* 글자 */
-  --ink: #16241c;
-  --ink-2: #44564b;
-  --ink-3: #7a8a80;
-  --ink-inverse: #f4faf3;
+  --ink: #1d2433;
+  --ink-2: #4b5468;
+  --ink-3: #8a93a6;
+  --ink-inverse: #ffffff;
 
-  /* 배경 */
-  --bg: #e6e9e7;
-  --bg-deep: #d5dad7;
+  /* 배경: 차갑고 맑은 흰색 */
+  --bg: #eef2f7;
+  --bg-deep: #e6ecf4;
 
-  /* 유리: 색을 빼고 불투명한 회색으로 (iOS 제어 센터 느낌) */
-  --glass-fill: rgb(142 144 148 / 0.26);
-  --glass-fill-strong: rgb(236 237 239 / 0.82);
-  --glass-fill-raised: rgb(255 255 255 / 0.55);
-  --glass-tint: rgb(98 101 106 / 0.62);
-  --glass-dark: rgb(46 48 52 / 0.84);
-  --glass-blur: 30px;
-  --glass-sat: 115%;
-  --rim-light: rgb(255 255 255 / 0.55);
-  --rim-dim: rgb(255 255 255 / 0.08);
+  /* 유리: 흰 서리 유리. 채움은 옅게, 흐림은 강하게 해 뒤의 초록이 번져 보이게 */
+  --glass-fill: linear-gradient(145deg, rgb(255 255 255 / 0.5) 0%, rgb(255 255 255 / 0.22) 100%);
+  --glass-fill-strong: linear-gradient(145deg, rgb(255 255 255 / 0.72) 0%, rgb(255 255 255 / 0.5) 100%);
+  --glass-fill-raised: rgb(255 255 255 / 0.78);
+  --glass-tint: linear-gradient(145deg, rgb(44 198 114 / 0.3) 0%, rgb(44 198 114 / 0.16) 100%);
+  --glass-dark: linear-gradient(145deg, rgb(26 171 94 / 0.92) 0%, rgb(21 144 79 / 0.9) 100%);
+  --glass-blur: 26px;
+  --glass-sat: 170%;
+  --rim-light: rgb(255 255 255 / 0.95);
+  --rim-dim: rgb(255 255 255 / 0.45);
 
-  --shadow-soft: 0 1px 1px rgb(30 58 44 / 0.04), 0 10px 30px -12px rgb(30 58 44 / 0.28);
-  --shadow-float: 0 2px 4px rgb(30 58 44 / 0.06), 0 24px 48px -20px rgb(30 58 44 / 0.45);
-  --shadow-press: 0 1px 2px rgb(30 58 44 / 0.12), 0 6px 14px -8px rgb(30 58 44 / 0.4);
+  --shadow-soft: 0 1px 2px rgb(60 80 120 / 0.04), 0 14px 32px -16px rgb(60 80 120 / 0.22);
+  --shadow-float: 0 2px 4px rgb(60 80 120 / 0.05), 0 24px 48px -22px rgb(60 80 120 / 0.32);
+  --shadow-press: 0 1px 2px rgb(20 24 28 / 0.1), 0 6px 14px -8px rgb(20 24 28 / 0.3);
 
   /* 모양 */
   --r-xs: 10px;
