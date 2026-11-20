@@ -36,7 +36,7 @@ export default function App() {
 
   return (
     <>
-      <Ambient />
+      <Ambient quiet={screen !== 'setup'} />
       <div className="app">
         {screen === 'setup' && <SetupScreen value={setup} onChange={setSetup} onStart={() => start(setup)} />}
         {screen === 'negotiate' && neg && (
