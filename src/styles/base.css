@@ -74,8 +74,8 @@ p {
   overflow: hidden;
   pointer-events: none;
   background:
-    radial-gradient(120% 80% at 50% 0%, #f1f6ee 0%, transparent 60%),
-    linear-gradient(180deg, #eaf1e8 0%, var(--bg-deep) 100%);
+    radial-gradient(120% 80% at 50% 0%, #f2f4f3 0%, transparent 60%),
+    linear-gradient(180deg, #e9ecea 0%, var(--bg-deep) 100%);
 }
 
 .ambient__blob {
@@ -92,7 +92,7 @@ p {
   height: 62vmax;
   left: -22vmax;
   top: -18vmax;
-  background: radial-gradient(circle at 40% 40%, #9cc3a8, transparent 68%);
+  background: radial-gradient(circle at 40% 40%, #b4c0b8, transparent 68%);
 }
 
 .ambient__blob--2 {
@@ -100,8 +100,8 @@ p {
   height: 52vmax;
   right: -20vmax;
   top: 18vh;
-  background: radial-gradient(circle at 50% 50%, #3c7558, transparent 66%);
-  opacity: 0.72;
+  background: radial-gradient(circle at 50% 50%, #6f7d75, transparent 66%);
+  opacity: 0.5;
   animation-duration: 32s;
   animation-delay: -8s;
 }
@@ -111,8 +111,8 @@ p {
   height: 46vmax;
   left: -10vmax;
   bottom: -16vmax;
-  background: radial-gradient(circle at 50% 50%, #e8d9b8, transparent 66%);
-  opacity: 0.75;
+  background: radial-gradient(circle at 50% 50%, #ddd8cc, transparent 66%);
+  opacity: 0.6;
   animation-duration: 38s;
   animation-delay: -16s;
 }
@@ -122,7 +122,7 @@ p {
   height: 34vmax;
   right: -8vmax;
   bottom: 6vh;
-  background: radial-gradient(circle at 50% 50%, #a9cfc4, transparent 66%);
+  background: radial-gradient(circle at 50% 50%, #b9c6c2, transparent 66%);
   animation-duration: 30s;
   animation-delay: -4s;
 }

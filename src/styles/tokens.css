@@ -32,18 +32,19 @@
   --ink-inverse: #f4faf3;
 
   /* 배경 */
-  --bg: #e7efe6;
-  --bg-deep: #d6e3d6;
+  --bg: #e6e9e7;
+  --bg-deep: #d5dad7;
 
-  /* 유리 */
-  --glass-fill: linear-gradient(140deg, rgb(255 255 255 / 0.62) 0%, rgb(255 255 255 / 0.28) 55%, rgb(255 255 255 / 0.4) 100%);
-  --glass-fill-strong: linear-gradient(140deg, rgb(255 255 255 / 0.82) 0%, rgb(255 255 255 / 0.55) 100%);
-  --glass-tint: linear-gradient(140deg, rgb(79 138 106 / 0.82) 0%, rgb(47 93 70 / 0.78) 100%);
-  --glass-dark: linear-gradient(150deg, rgb(39 73 58 / 0.92) 0%, rgb(18 38 28 / 0.88) 100%);
-  --glass-blur: 22px;
-  --glass-sat: 170%;
-  --rim-light: rgb(255 255 255 / 0.9);
-  --rim-dim: rgb(255 255 255 / 0.15);
+  /* 유리: 색을 빼고 불투명한 회색으로 (iOS 제어 센터 느낌) */
+  --glass-fill: rgb(142 144 148 / 0.26);
+  --glass-fill-strong: rgb(236 237 239 / 0.82);
+  --glass-fill-raised: rgb(255 255 255 / 0.55);
+  --glass-tint: rgb(98 101 106 / 0.62);
+  --glass-dark: rgb(46 48 52 / 0.84);
+  --glass-blur: 30px;
+  --glass-sat: 115%;
+  --rim-light: rgb(255 255 255 / 0.55);
+  --rim-dim: rgb(255 255 255 / 0.08);
 
   --shadow-soft: 0 1px 1px rgb(30 58 44 / 0.04), 0 10px 30px -12px rgb(30 58 44 / 0.28);
   --shadow-float: 0 2px 4px rgb(30 58 44 / 0.06), 0 24px 48px -20px rgb(30 58 44 / 0.45);
