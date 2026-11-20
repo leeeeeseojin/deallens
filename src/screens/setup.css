@@ -94,55 +94,67 @@
   letter-spacing: -0.03em;
 }
 
-/* 물건 */
+/* 물건: 칸 없이 아이콘과 이름만. 고른 것은 초록 글자와 아래 점으로 표시 */
 .items {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 8px;
+  gap: 4px;
+  margin: 2px -4px 0;
 }
 
 .item {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 6px;
-  padding: 12px 4px 10px;
-  border-radius: var(--r-md);
-  --spec: 0.4;
+  gap: 8px;
+  padding: 8px 2px 4px;
+  border-radius: var(--r-sm);
+  color: var(--ink-3);
+  transition: color var(--t-med) var(--ease-out);
 }
 
 .item__icon {
   display: grid;
   place-items: center;
-  width: 44px;
-  height: 44px;
-  border-radius: 14px;
-  color: var(--ink-2);
-  background: rgb(255 255 255 / 0.5);
+  height: 30px;
   transition: transform var(--t-med) var(--spring);
 }
 
 .item__name {
-  font-size: 11.5px;
+  font-size: 12px;
   font-weight: 600;
   line-height: 1.3;
   text-align: center;
-  color: var(--ink-2);
   word-break: keep-all;
 }
 
+.item__dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--g-500);
+  opacity: 0;
+  transform: scale(0);
+  transition:
+    opacity var(--t-med),
+    transform var(--t-med) var(--spring);
+}
+
 .item--on {
-  background: var(--glass-fill-raised);
+  color: var(--g-700);
 }
 
 .item--on .item__icon {
-  color: #fff;
-  background: var(--g-600);
-  transform: scale(1.06);
+  transform: translateY(-2px) scale(1.08);
 }
 
 .item--on .item__name {
-  color: var(--g-900);
+  font-weight: 750;
+}
+
+.item--on .item__dot {
+  opacity: 1;
+  transform: scale(1);
 }
 
 /* 행 */
@@ -175,33 +187,33 @@
   gap: 8px;
 }
 
-/* 자율성 단계 */
+/* 자율성 단계: 칸 대신 얇은 구분선으로 나눈 목록 */
 .autonomy {
   display: flex;
   flex-direction: column;
-  gap: 8px;
 }
 
 .autonomy__opt {
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 14px;
-  border-radius: var(--r-md);
+  padding: 14px 2px;
   text-align: left;
-  --spec: 0.35;
+  border-top: 1px solid rgb(29 36 51 / 0.07);
+}
+
+.autonomy__opt:first-child {
+  border-top: 0;
+  padding-top: 4px;
 }
 
 .autonomy__icon {
   display: grid;
   place-items: center;
   flex: none;
-  width: 40px;
-  height: 40px;
-  border-radius: 14px;
-  color: var(--g-700);
-  background: rgb(255 255 255 / 0.5);
-  transition: all var(--t-med) var(--ease-out);
+  width: 24px;
+  color: var(--ink-3);
+  transition: color var(--t-med) var(--ease-out);
 }
 
 .autonomy__text {
@@ -215,6 +227,8 @@
 .autonomy__name {
   font-size: 15px;
   font-weight: 700;
+  color: var(--ink-2);
+  transition: color var(--t-med);
 }
 
 .autonomy__who {
@@ -226,7 +240,7 @@
 
 .autonomy__desc {
   font-size: 13px;
-  color: var(--ink-2);
+  color: var(--ink-3);
   word-break: keep-all;
 }
 
@@ -235,23 +249,22 @@
   width: 22px;
   height: 22px;
   border-radius: 50%;
-  box-shadow: inset 0 0 0 2px rgb(20 24 28 / 0.2);
+  box-shadow: inset 0 0 0 1.6px rgb(29 36 51 / 0.18);
   transition: all var(--t-med) var(--spring);
 }
 
-.autonomy__opt--on {
-  background: var(--glass-fill-raised);
+.autonomy__opt--on .autonomy__icon {
+  color: var(--g-600);
 }
 
-.autonomy__opt--on .autonomy__icon {
-  color: #fff;
-  background: var(--g-500);
+.autonomy__opt--on .autonomy__name {
+  color: var(--ink);
 }
 
 .autonomy__opt--on .autonomy__radio {
   box-shadow:
-    inset 0 0 0 7px var(--g-600),
-    0 0 0 3px rgb(79 138 106 / 0.2);
+    inset 0 0 0 6px var(--g-500),
+    0 0 0 4px rgb(44 198 114 / 0.15);
 }
 
 /* 하단 고정 버튼 */

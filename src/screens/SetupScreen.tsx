@@ -66,13 +66,14 @@ export function SetupScreen({ value: v, onChange, onStart }: SetupScreenProps) {
                 key={it.id}
                 role="radio"
                 aria-checked={it.id === v.itemId}
-                className={`item glass pressable ${it.id === v.itemId ? 'item--on' : ''}`}
+                className={`item pressable ${it.id === v.itemId ? 'item--on' : ''}`}
                 onClick={() => pickItem(it.id)}
               >
                 <span className="item__icon" aria-hidden="true">
-                  <Icon name={ITEM_ICON[it.id] ?? 'keyboard'} size={24} strokeWidth={1.6} />
+                  <Icon name={ITEM_ICON[it.id] ?? 'keyboard'} size={26} strokeWidth={1.5} />
                 </span>
                 <span className="item__name">{it.name}</span>
+                <span className="item__dot" aria-hidden="true" />
               </button>
             ))}
           </div>
@@ -102,10 +103,10 @@ export function SetupScreen({ value: v, onChange, onStart }: SetupScreenProps) {
           <div className="row">
             <span className="label">거래 방식</span>
             <div className="chips">
-              <button className="chip glass pressable" aria-pressed={v.methods.includes('meet')} onClick={() => toggleMethod('meet')}>
+              <button className="chip chip--line pressable" aria-pressed={v.methods.includes('meet')} onClick={() => toggleMethod('meet')}>
                 <Icon name="pin" size={15} /> 직거래
               </button>
-              <button className="chip glass pressable" aria-pressed={v.methods.includes('delivery')} onClick={() => toggleMethod('delivery')}>
+              <button className="chip chip--line pressable" aria-pressed={v.methods.includes('delivery')} onClick={() => toggleMethod('delivery')}>
                 <Icon name="truck" size={15} /> 택배
               </button>
             </div>
@@ -145,7 +146,7 @@ export function SetupScreen({ value: v, onChange, onStart }: SetupScreenProps) {
                 key={a.value}
                 role="radio"
                 aria-checked={v.autonomy === a.value}
-                className={`autonomy__opt glass pressable ${v.autonomy === a.value ? 'autonomy__opt--on' : ''}`}
+                className={`autonomy__opt ${v.autonomy === a.value ? 'autonomy__opt--on' : ''}`}
                 onClick={() => set({ autonomy: a.value })}
               >
                 <span className="autonomy__icon" aria-hidden="true">
@@ -174,7 +175,7 @@ export function SetupScreen({ value: v, onChange, onStart }: SetupScreenProps) {
           </div>
           <div className="personas">
             {(Object.keys(PERSONAS) as PersonaId[]).map((id) => (
-              <button key={id} className="chip glass pressable" aria-pressed={v.persona === id} onClick={() => set({ persona: id })}>
+              <button key={id} className="chip chip--line pressable" aria-pressed={v.persona === id} onClick={() => set({ persona: id })}>
                 {PERSONAS[id].name}
               </button>
             ))}
