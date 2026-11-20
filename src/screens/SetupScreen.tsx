@@ -7,7 +7,7 @@ import { spokenWon } from '../engine/format'
 import { Icon } from '../ui/Icon'
 import { ITEM_ICON } from '../ui/itemIcon'
 import { RangeSlider } from '../ui/RangeSlider'
-import { Segmented } from '../ui/Segmented'
+import { InlineChoice } from '../ui/Choice'
 import type { SetupValues } from '../setup'
 import './setup.css'
 
@@ -104,31 +104,33 @@ export function SetupScreen({ value: v, onChange, onStart }: SetupScreenProps) {
         <div className="wiz__fields">
           <div className="row">
             <span className="label">거래 방식</span>
-            <div className="chips">
-              <button className="chip chip--line pressable" aria-pressed={v.methods.includes('meet')} onClick={() => toggleMethod('meet')}>
-                <Icon name="pin" size={15} /> 직거래
-              </button>
-              <button className="chip chip--line pressable" aria-pressed={v.methods.includes('delivery')} onClick={() => toggleMethod('delivery')}>
-                <Icon name="truck" size={15} /> 택배
-              </button>
-            </div>
+            <InlineChoice<TradeMethod>
+              label="거래 방식"
+              multiple
+              selected={v.methods}
+              onToggle={toggleMethod}
+              options={[
+                { value: 'meet', label: '직거래' },
+                { value: 'delivery', label: '택배' },
+              ]}
+            />
           </div>
           <div className="grid2">
             <label className="row">
               <span className="label">장소</span>
-              <input className="field" value={v.place} onChange={(e) => set({ place: e.target.value })} placeholder="광운대역" />
+              <input className="field field--line" value={v.place} onChange={(e) => set({ place: e.target.value })} placeholder="광운대역" />
             </label>
             <label className="row">
               <span className="label">시간</span>
-              <input className="field" value={v.time} onChange={(e) => set({ time: e.target.value })} placeholder="주말" />
+              <input className="field field--line" value={v.time} onChange={(e) => set({ time: e.target.value })} placeholder="주말" />
             </label>
           </div>
           <div className="row">
             <span className="label">협상 스타일</span>
-            <Segmented
+            <InlineChoice
               label="협상 스타일"
-              value={v.style}
-              onChange={(style) => set({ style })}
+              selected={[v.style]}
+              onToggle={(style) => set({ style })}
               options={[
                 { value: 'hold', label: '버티기' },
                 { value: 'quick', label: '빠른 거래' },
@@ -169,21 +171,29 @@ export function SetupScreen({ value: v, onChange, onStart }: SetupScreenProps) {
       summary: `${PERSONAS[v.persona].name} · ${v.agent === 'strong' ? '강한' : '약한'} 에이전트`,
       body: (
         <div className="wiz__fields">
-          <div className="personas">
+          <div className="autonomy autonomy--compact" role="radiogroup" aria-label="데모 상대">
             {(Object.keys(PERSONAS) as PersonaId[]).map((id) => (
-              <button key={id} className="chip chip--line pressable" aria-pressed={v.persona === id} onClick={() => set({ persona: id })}>
-                {PERSONAS[id].name}
+              <button
+                key={id}
+                role="radio"
+                aria-checked={v.persona === id}
+                className={v.persona === id ? 'autonomy__opt autonomy__opt--on' : 'autonomy__opt'}
+                onClick={() => set({ persona: id })}
+              >
+                <span className="autonomy__text">
+                  <span className="autonomy__name">{PERSONAS[id].name}</span>
+                  {v.persona === id && <span className="autonomy__desc">{PERSONAS[id].description}</span>}
+                </span>
+                <span className="autonomy__radio" aria-hidden="true" />
               </button>
             ))}
           </div>
-          <p className="caption">{PERSONAS[v.persona].description}</p>
           <div className="row row--inline">
             <span className="label">내 에이전트</span>
-            <Segmented
-              size="sm"
+            <InlineChoice
               label="에이전트 품질"
-              value={v.agent}
-              onChange={(agent) => set({ agent })}
+              selected={[v.agent]}
+              onToggle={(agent) => set({ agent })}
               options={[
                 { value: 'strong', label: '강한' },
                 { value: 'weak', label: '약한' },
@@ -201,55 +211,61 @@ export function SetupScreen({ value: v, onChange, onStart }: SetupScreenProps) {
 
   return (
     <main className={`setup ${step > 1 ? 'setup--compact' : ''}`}>
-      <header className="setup__hero">
-        <div className="setup__brand">
-          <div className="orb orb--float" style={{ ['--size' as string]: '40px' }} aria-hidden="true" />
-          <span className="setup__logo">DealLens</span>
-        </div>
-        <div className="setup__intro" aria-hidden={step > 1}>
-          <div>
-            <h1 className="setup__title">
-              AI가 대신 흥정하고
-              <br />
-              <em>놓친 금액까지 알려드려요</em>
-            </h1>
-            <p className="setup__sub">가격과 조건만 정하면 나머지는 알아서 할게요. 정한 범위를 넘는 약속은 하지 않아요.</p>
+      {/* 위쪽 고정: 로고·소개 문구·진행 막대 */}
+      <div className="setup__top">
+        <header className="setup__hero">
+          <div className="setup__brand">
+            <div className="orb orb--float" style={{ ['--size' as string]: '40px' }} aria-hidden="true" />
+            <span className="setup__logo">DealLens</span>
           </div>
-        </div>
-      </header>
+          <div className="setup__intro" aria-hidden={step > 1}>
+            <div>
+              <h1 className="setup__title">
+                AI가 대신 흥정하고
+                <br />
+                <em>놓친 금액까지 알려드려요</em>
+              </h1>
+              <p className="setup__sub">가격과 조건만 정하면 나머지는 알아서 할게요. 정한 범위를 넘는 약속은 하지 않아요.</p>
+            </div>
+          </div>
+        </header>
 
-      <div className="wiz__progress" role="progressbar" aria-valuemin={1} aria-valuemax={TOTAL} aria-valuenow={step} aria-label={`${TOTAL}단계 중 ${step}단계`}>
-        {steps.map((_, i) => (
-          <i key={i} className={i + 1 < step ? 'done' : i + 1 === step ? 'now' : ''} />
-        ))}
+        <div className="wiz__progress" role="progressbar" aria-valuemin={1} aria-valuemax={TOTAL} aria-valuenow={step} aria-label={`${TOTAL}단계 중 ${step}단계`}>
+          {steps.map((_, i) => (
+            <i key={i} className={i + 1 < step ? 'done' : i + 1 === step ? 'now' : ''} />
+          ))}
+        </div>
       </div>
 
-      {/* 끝낸 단계: 위로 물러나 눕는다. 오래된 것일수록 더 멀리 */}
-      {step > 1 && (
-        <ol className="wiz__history" aria-label="고른 단계">
-          {steps.slice(0, step - 1).map((s, i) => (
-            <li key={i} style={{ ['--depth' as string]: step - 1 - i }}>
-              <button className="wiz__past pressable" onClick={() => setStep(i + 1)} aria-label={`${i + 1}단계 ${s.title} 다시 고르기`}>
-                <span className="card__step wiz__past-num">{i + 1}</span>
-                <span className="wiz__past-title">{s.title}</span>
-                <span className="wiz__past-value">{s.summary}</span>
-                <Icon name="check" size={15} strokeWidth={2.4} className="wiz__past-check" />
-              </button>
-            </li>
-          ))}
-        </ol>
-      )}
+      {/* 남은 공간의 가운데에 끝낸 단계와 지금 단계를 함께 둔다 */}
+      <div className="wiz__stage">
+        {/* 끝낸 단계: 위로 물러나 눕는다. 오래된 것일수록 더 멀리 */}
+        {step > 1 && (
+          <ol className="wiz__history" aria-label="고른 단계">
+            {steps.slice(0, step - 1).map((s, i) => (
+              <li key={i} style={{ ['--depth' as string]: step - 1 - i }}>
+                <button className="wiz__past pressable" onClick={() => setStep(i + 1)} aria-label={`${i + 1}단계 ${s.title} 다시 고르기`}>
+                  <span className="card__step wiz__past-num">{i + 1}</span>
+                  <span className="wiz__past-title">{s.title}</span>
+                  <span className="wiz__past-value">{s.summary}</span>
+                  <Icon name="check" size={15} strokeWidth={2.4} className="wiz__past-check" />
+                </button>
+              </li>
+            ))}
+          </ol>
+        )}
 
-      <section key={step} className="wiz__step" aria-labelledby={`step-${step}`}>
-        <div className="wiz__head">
-          <span className="card__step wiz__num">{step}</span>
-          <h2 className="wiz__title" id={`step-${step}`}>
-            {current.title}
-          </h2>
-        </div>
-        <div className="wiz__body">{current.body}</div>
-        {current.note && <p className="caption wiz__note">{current.note}</p>}
-      </section>
+        <section key={step} className="wiz__step" aria-labelledby={`step-${step}`}>
+          <div className="wiz__head">
+            <span className="card__step wiz__num">{step}</span>
+            <h2 className="wiz__title" id={`step-${step}`}>
+              {current.title}
+            </h2>
+          </div>
+          <div className="wiz__body">{current.body}</div>
+          {current.note && <p className="caption wiz__note">{current.note}</p>}
+        </section>
+      </div>
 
       <div className="setup__cta">
         {step > 1 && (

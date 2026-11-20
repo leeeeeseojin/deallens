@@ -1,9 +1,33 @@
+/* 위는 고정, 남은 높이 전체를 단계 무대로 쓴다 */
 .setup {
-  padding: calc(20px + env(safe-area-inset-top, 0px)) var(--gutter) calc(110px + var(--safe-b));
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
+  padding: 0 var(--gutter) calc(96px + var(--safe-b));
+}
+
+.setup__top {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  margin: 0 calc(var(--gutter) * -1);
+  padding: calc(16px + env(safe-area-inset-top, 0px)) var(--gutter) 2px;
+  background: linear-gradient(180deg, rgb(244 247 251 / 0.92) 0%, rgb(240 244 249 / 0.82) 75%, rgb(240 244 249 / 0) 100%);
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+}
+
+/* 끝낸 단계와 지금 단계를 묶어 남은 공간의 가운데쯤(살짝 위)에 둔다 */
+.wiz__stage {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 8px 0 6vh;
 }
 
 .setup__hero {
-  padding: 8px 4px 22px;
+  padding: 4px 4px 18px;
 }
 
 .setup__brand {
@@ -272,7 +296,7 @@
 .wiz__progress {
   display: flex;
   gap: 6px;
-  margin: 4px 4px 18px;
+  margin: 4px 4px 12px;
 }
 
 .wiz__progress i {
@@ -427,4 +451,97 @@
   font-size: 13px;
   font-weight: 650;
   opacity: 0.75;
+}
+
+/* ─── 칸 없는 선택지: 작은 원·체크와 글자 색으로만 고른 상태 표시 ─── */
+.opts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 24px;
+}
+
+.opt {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--ink-3);
+  transition: color var(--t-med);
+}
+
+.opt__mark {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  color: #fff;
+  box-shadow: inset 0 0 0 1.6px rgb(29 36 51 / 0.2);
+  transition:
+    box-shadow var(--t-med) var(--spring),
+    background var(--t-med);
+}
+
+.opt--multi .opt__mark {
+  border-radius: 6px;
+}
+
+.opt__mark svg {
+  opacity: 0;
+  transform: scale(0.4);
+  transition:
+    opacity var(--t-fast),
+    transform var(--t-med) var(--spring);
+}
+
+.opt--on {
+  color: var(--ink);
+  font-weight: 700;
+}
+
+.opt--on .opt__mark {
+  box-shadow:
+    inset 0 0 0 6px var(--g-500),
+    0 0 0 4px rgb(44 198 114 / 0.14);
+}
+
+.opt--on.opt--multi .opt__mark {
+  background: var(--g-500);
+  box-shadow: 0 0 0 4px rgb(44 198 114 / 0.14);
+}
+
+.opt--on .opt__mark svg {
+  opacity: 1;
+  transform: none;
+}
+
+/* 밑줄만 있는 입력창 */
+.field--line {
+  height: 40px;
+  padding: 0 2px;
+  border-radius: 0;
+  background: none;
+  box-shadow: inset 0 -1.5px 0 rgb(29 36 51 / 0.14);
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.field--line:focus {
+  box-shadow: inset 0 -2px 0 var(--g-500);
+}
+
+/* 데모 상대처럼 선택지가 많은 목록은 줄 간격을 좁힌다 */
+.autonomy--compact .autonomy__opt {
+  padding: 10px 2px;
+}
+
+.autonomy--compact .autonomy__name {
+  font-size: 14.5px;
+}
+
+.autonomy--compact .autonomy__desc {
+  font-size: 12.5px;
 }
