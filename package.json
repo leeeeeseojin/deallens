@@ -9,7 +9,8 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "test": "vitest run"
+    "test": "vitest run",
+    "bench": "vite-node scripts/bench.ts"
   },
   "dependencies": {
     "react": "^19.1.0",
