@@ -20,6 +20,12 @@ Anthropic Project Deal에서 강한 에이전트는 약한 에이전트보다 �
 
 모바일 웹 기준 다섯 화면이며, 협상 화면이 중심입니다.
 
+| 위임 설정 | 협상 | 판단 요청 | 성적표 |
+| :---: | :---: | :---: | :---: |
+| <img src="docs/images/setup.png" width="190" alt="자율성 단계를 고르는 위임 설정 화면"> | <img src="docs/images/negotiation.png" width="190" alt="최저가 떠보기를 차단하고 근거와 확신도를 보여주는 협상 화면"> | <img src="docs/images/decision.png" width="190" alt="위임 범위 밖 조건에서 에이전트 초안과 추천을 보여주는 판단 요청"> | <img src="docs/images/report.png" width="190" alt="그림자 협상 분포 위에 내 결과를 표시한 성적표"> |
+
+<sub>배포된 데모에서 기본 설정으로 진행하며 캡처한 화면입니다.</sub>
+
 | 화면 | 핵심 요소 |
 | --- | --- |
 | 위임 설정 | 가격 범위 슬라이더(최저가는 기밀), 거래 조건, 자율성 세 단계 |
